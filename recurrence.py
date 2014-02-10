@@ -26,23 +26,20 @@ def solve_helper(K, N, a, c):
 		index += 1
 		matrix.append(new_list)
 
-	for item in matrix:
-		print item
-	print " "
-
 	matrix_a = [a[::-1]]
-	#print matrix_a
 	old_matrix = copy.copy(matrix)
 	while i < N:
-		print i
-		matrix = matrix_multiply(old_matrix, matrix)
-		i += 1
+		if i * 2 < N:
+			matrix = matrix_multiply(matrix, matrix)
+			i += i - 1
 
-		test_matrix = matrix_multiply(matrix, matrix_a)
-		for item in old_matrix:
-			print item
+			for item in matrix:
+				print item
+			#print " "
+		else:
+			matrix = matrix_multiply(old_matrix, matrix)
+			i += 1
 
-		print "\n\n"
 
 	return matrix_multiply(matrix, matrix_a)[0][0] % 1000
 
