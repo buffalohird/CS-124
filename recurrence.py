@@ -7,7 +7,7 @@ def solve_recurrences(line_1, line_2, line_3):
 	a = map(int, line_2.split())
 	c = map(int, line_3.split())
 
-	if(N < 5):
+	if(N < 1):
 		i = len(a) - 1
 		return solve_helper_old(K, N, a, c, i)
 
@@ -35,7 +35,7 @@ def solve_helper(K, N, a, c):
 	matrix_list.append(matrix)
 	matrix_bool = False
 	while i < N - K + 1:
-		if i * 2 < N:
+		if i * 2 < N - K + 1:
 			# simply double our n in M^N
 			matrix = matrix_multiply(matrix, matrix)
 			i += i
@@ -48,7 +48,7 @@ def solve_helper(K, N, a, c):
 				index = matrix_list.index(item)
 				# see if its 2^index is in range (which is its exponent of 2)
 				# index 4 -> 2^4 = 16 -> M^16
-				if i + 2 ** index < N:
+				if i + 2 ** index < N - K + 2:
 					matrix = matrix_multiply(matrix, item)
 					i += 2 ** index
 					break
@@ -57,7 +57,13 @@ def solve_helper(K, N, a, c):
 					matrix_list.pop(index)
 
 		#print i
-
+		"""
+		for item in matrix_list:
+			for row in item:
+				print row
+			print ""
+		print ""
+		"""
 
 
 	# after M^N, multiply M^N * a to get matrix whose top-left item is solution (% 1000)
@@ -79,7 +85,7 @@ def matrix_multiply(a,b):
     zip_b = b
     if len(b) != 1:
     	zip_b = zip(*b)
-    return [[sum(ele_a*ele_b % 1000 for ele_a, ele_b in zip(row_a, col_b)) for col_b in zip_b] for row_a in a]
+    return [[sum(ele_a*ele_b for ele_a, ele_b in zip(row_a, col_b)) % 1000 for col_b in zip_b] for row_a in a]
 
 
 
@@ -91,6 +97,7 @@ line_3 = "9 15"
 line_1 = raw_input()
 line_2 = raw_input()
 line_3 = raw_input()
+
 
 
 
