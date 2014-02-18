@@ -7,7 +7,7 @@ def solve_recurrences(line_1, line_2, line_3):
 	a = map(int, line_2.split())
 	c = map(int, line_3.split())
 
-	if(N < 1):
+	if(N < 5):
 		i = len(a) - 1
 		return solve_helper_old(K, N, a, c, i)
 
@@ -17,7 +17,7 @@ def solve_recurrences(line_1, line_2, line_3):
 	
 def solve_helper(K, N, a, c):
 
-	i = 1
+	i = K
 	matrix = []
 	matrix.append(c)
 	index = 0
@@ -31,36 +31,40 @@ def solve_helper(K, N, a, c):
 	matrix_a = [a[::-1]]
 	old_matrix = copy.copy(matrix)
 	matrix_list = []
-	matrix_list.append(matrix)
 	matrix_bool = False
-	
-	while i < N - K + 1:
-		if i * 2 < N - K + 1:
+	for item in matrix:
+		print item
+	while i < N:
+		if 1 == 2:#i * 2 < N:
 			matrix = matrix_multiply(matrix, matrix)
-			i += i
+			i += i - 1
 			matrix_list.append(matrix)
 		else:
-			for item in reversed(matrix_list):	
-				index = matrix_list.index(item)
-				if i + 2 ** index < N - K + 2:
+			"""
+			for item in reversed(matrix_list):
+				print matrix_list
+				index = matrix_list.index(item) + 1
+				matrix_bool = False
+				if i + 2 ** index < N:
 					matrix = matrix_multiply(matrix, item)
-					i += 2 ** index
-					break
-				else:
-					matrix_list.pop(index)
-		
-		for item in matrix_list:
-			for row in item:
-				print row
-			print ""
+					i += index
+					matrix_bool = True
+					break"""
+
+			if matrix_bool == False:
+				matrix = matrix_multiply(old_matrix, matrix)
+				i += 1
+
+		print i 
+		for item in matrix:
+			print item
+
 		print ""
-		
 
-
+	print matrix_a
 	return matrix_multiply(matrix, matrix_a)[0][0] % 1000
 
 
-# old, non-matrix solution
 def solve_helper_old(K, N, a, c, i):
 	if i == N:
 		return a.pop() % 1000
@@ -74,28 +78,23 @@ def solve_helper_old(K, N, a, c, i):
 def matrix_multiply(a,b):
     zip_b = b
     if len(b) != 1:
-    	zip_b = zip(*b)
-    return [[sum(ele_a*ele_b for ele_a, ele_b in zip(row_a, col_b)) % 1000 for col_b in zip_b] for row_a in a]
+        zip_b = zip(*b)
+    return [[sum(ele_a*ele_b for ele_a, ele_b in zip(row_a, col_b)) for col_b in zip_b] for row_a in a]
 
 
 
-"""
-line_1 = "2 100"
-line_2 = "12 17"
-line_3 = "9 15"
+
+line_1 = "3 5"
+line_2 = "1 2 3"
+line_3 = "3 2 1"
 """
 line_1 = raw_input()
 line_2 = raw_input()
 line_3 = raw_input()
-
-
-
-
-
+"""
 
 
 print solve_recurrences(line_1, line_2, line_3)
-
 
 
 

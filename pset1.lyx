@@ -1,0 +1,2680 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Buffalo Hird
+\end_layout
+
+\begin_layout Standard
+CS124 Problem Set 1
+\end_layout
+
+\begin_layout Standard
+Problem 1:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ 
+\backslash
+begin {array}{cc|c|c|c|c|c|} A & B & O & o & 
+\backslash
+Omega & 
+\backslash
+omega & 
+\backslash
+Theta 
+\backslash
+
+\backslash
+ 
+\backslash
+hline 
+\backslash
+log{n} & 
+\backslash
+log(
+\backslash
+frac n{
+\backslash
+log n}) & yes & no & yes & no & yes 
+\backslash
+
+\backslash
+ 
+\backslash
+hline 
+\backslash
+log (n!) & 
+\backslash
+log(n^n) & yes & yes & no & no & no 
+\backslash
+
+\backslash
+ 
+\backslash
+hline 
+\backslash
+sqrt[7]{n} & (
+\backslash
+log n)^{2} & no & no & yes & yes & no 
+\backslash
+
+\backslash
+ 
+\backslash
+hline n^22^n & 3^n & yes & yes & no & no & no 
+\backslash
+
+\backslash
+ 
+\backslash
+hline (n^2)! & n^n & no & no & yes & yes & no 
+\backslash
+
+\backslash
+ 
+\backslash
+hline {n^2 
+\backslash
+over 
+\backslash
+log{n}} & n 
+\backslash
+log(n^2) & no & no & yes & no & no 
+\backslash
+
+\backslash
+ 
+\backslash
+hline (
+\backslash
+log n)^{
+\backslash
+log n} & 4^{(
+\backslash
+log n)(
+\backslash
+log
+\backslash
+log n)} & no & no & yes & yes & no 
+\backslash
+
+\backslash
+ 
+\backslash
+hline n + 
+\backslash
+log n & 100n + 
+\backslash
+sqrt{n} & yes & no & yes & no & yes 
+\backslash
+
+\backslash
+ 
+\backslash
+hline 
+\backslash
+end{array} $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 2:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+• Find (with proof) a function 
+\begin_inset Formula $f_{1}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f_{1}(2n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(f_{1}(n))$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We want to find an 
+\begin_inset Formula $f_{1}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f_{1}(2n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(f_{1}(n))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can note this means we want:
+\begin_inset Formula 
+\[
+f(n)\leq c*f(2n),n>N
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can take the example 
+\begin_inset Formula $f(n)=n$
+\end_inset
+
+ and plug into the equation to get
+\begin_inset Formula 
+\[
+2n\leq c*n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is true for any 
+\begin_inset Formula $c\geq3$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore proven by the identity of 
+\begin_inset Formula $O()$
+\end_inset
+
+ notation that 
+\begin_inset Formula $f(2n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(f(n))$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+• Find (with proof) a function 
+\begin_inset Formula $f_{2}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f_{2}(2n)$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(f_{2}(n))$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We want to find an 
+\begin_inset Formula $f_{2}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f_{2}(2n)$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(f_{2}(n))$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can note that this means:
+\begin_inset Formula 
+\[
+\frac{lim(f(2n))}{lim(f(n))}=\infty,n\rightarrow\infty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can try the example 
+\begin_inset Formula $f(n)=3^{n}$
+\end_inset
+
+.
+\begin_inset Formula 
+\[
+\frac{lim(3^{2n})}{lim(3^{n})}=lim(3^{n})\rightarrow\mbox{\infty,n\rightarrow\infty}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the limit goes to infinity, we have shown that 
+\begin_inset Formula $f(2n)$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(f(n))$
+\end_inset
+
+ by the definition of 
+\begin_inset Formula $O()$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+• Prove that if 
+\begin_inset Formula $f(n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(g(n))$
+\end_inset
+
+, and 
+\begin_inset Formula $g(n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(h(n))$
+\end_inset
+
+, then 
+\begin_inset Formula $f(n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(h(n))$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can note by the definition of 
+\begin_inset Formula $O()$
+\end_inset
+
+ we can rewrite these relationships as 
+\begin_inset Formula 
+\[
+f(n)\leq c*g(n),n>N_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g(n)\leq d*h(n),n>N_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can therefore rearrange the equations to say
+\begin_inset Formula 
+\[
+\frac{f(n)}{c}\leq g(n),n>N_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since this fraction is never more than 
+\begin_inset Formula $g(n)$
+\end_inset
+
+, we can safely plug it in for 
+\begin_inset Formula $g(n)$
+\end_inset
+
+ without breaking 
+\begin_inset Formula $O()$
+\end_inset
+
+ relations:
+\begin_inset Formula 
+\[
+\frac{f(n)}{c}\leq d*h(n),n>N_{2}
+\]
+
+\end_inset
+
+We can then rearrange to get:
+\begin_inset Formula 
+\[
+f(n)\leq c_{1}*h(n),n>N_{2},c_{1}=c*d
+\]
+
+\end_inset
+
+Since it doesn't matter what constant we apply for this equation, we can
+ simply combine c and d.
+ We must only alter our equation such that we rely on the 
+\begin_inset Formula $max(N_{1},N_{2})$
+\end_inset
+
+ because it is not until this 
+\begin_inset Formula $N$
+\end_inset
+
+ that we expect 
+\begin_inset Formula $f(n)$
+\end_inset
+
+ to grow less than or equal to 
+\begin_inset Formula $h(n)$
+\end_inset
+
+'s asymptotic growth (with constants).
+ So we have a final proved equation of:
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+f(n)\leq c_{1}*h(n),n>max(N_{1},N_{2}),c_{1}=c*d
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+• Give a proof or a counterexample: if 
+\begin_inset Formula $f$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(g)$
+\end_inset
+
+, then 
+\begin_inset Formula $g$
+\end_inset
+
+ is 
+\begin_inset Formula $O(f)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can simply prove this by creation a function which alters its 
+\begin_inset Formula $O()$
+\end_inset
+
+ runtime each iteration.
+ We define
+\begin_inset Formula 
+\[
+f(n)=\left\{ \begin{array}{cc}
+even & n\\
+odd & n^{3}
+\end{array}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g(n)=n^{2}
+\]
+
+\end_inset
+
+We can take the ratio of these two functions' limits to get their aymptotic
+ 
+\begin_inset Formula $O()$
+\end_inset
+
+ relation.
+ For even n:
+\begin_inset Formula 
+\[
+\frac{lim(n)}{lim(n^{2})}=lim(\frac{1}{n})=0,n\rightarrow\infty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So 
+\begin_inset Formula $f(n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(g(n))$
+\end_inset
+
+ in the even case, but 
+\begin_inset Formula $g(n)$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(f(n))$
+\end_inset
+
+.
+ Let's do odd n:
+\begin_inset Formula 
+\[
+\frac{lim(n^{3})}{lim(n^{2})}=lim(n)=\infty,n\rightarrow\infty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So here 
+\begin_inset Formula $g(n)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(f(n))$
+\end_inset
+
+ in the odd case but the opposite does not hold.
+ We can note that in this case that even though there are piecewise 
+\begin_inset Formula $O()$
+\end_inset
+
+ relations, when we combine them we are left with none.
+ So even though 
+\begin_inset Formula $f$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(g)$
+\end_inset
+
+, 
+\begin_inset Formula $g$
+\end_inset
+
+ is not 
+\begin_inset Formula $O(f)$
+\end_inset
+
+ because it does not hold in the even case.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+• Give a proof or a counterexample: if 
+\begin_inset Formula $f$
+\end_inset
+
+ is not 
+\begin_inset Formula $o(g)$
+\end_inset
+
+, then 
+\begin_inset Formula $f$
+\end_inset
+
+ is 
+\begin_inset Formula $O(g)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+By definition f is 
+\begin_inset Formula $O(g)$
+\end_inset
+
+ is:
+\begin_inset Formula 
+\[
+f\leq c*g,N>n,\exists c
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+While f is 
+\begin_inset Formula $o(g)$
+\end_inset
+
+ is:
+\begin_inset Formula 
+\[
+f\leq c*g,N>n,\forall c
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can therefore prove this simply by these definitions.
+ We note that 
+\begin_inset Formula $o(g)$
+\end_inset
+
+ implies that this relationship holds for all constants c.
+ While 
+\begin_inset Formula $O(g)$
+\end_inset
+
+ holds for some constants c with sufficiently large n.
+ Since 
+\begin_inset Formula $o(g)$
+\end_inset
+
+ is for all constants, it must also hold for only some c by logic, therefore
+ if f is 
+\begin_inset Formula $o(g)$
+\end_inset
+
+ it must also be 
+\begin_inset Formula $O(g)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+We can note that most of the computation of insertion sort occurs in the
+ while-loop in which each individual element is sorted.
+ We can note that an element 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ is swapped a minimum of 0 times if the ordering is correct s.t.
+ 
+\begin_inset Formula $T(n)=n$
+\end_inset
+
+ as no swaps were required.
+ In the worst case, each 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ must be swapped 
+\begin_inset Formula $t_{j}$
+\end_inset
+
+ times, which is some value 
+\begin_inset Formula $[1,n-1]$
+\end_inset
+
+.
+ Therefore if each item needed swapping we would have 
+\begin_inset Formula $T(n)=n^{2}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We must now show there eists a sequence of arrays 
+\begin_inset Formula $T(n)=n^{1+\epsilon}$
+\end_inset
+
+ for any n and 
+\begin_inset Formula $0\leq\epsilon\leq1$
+\end_inset
+
+.
+ We can note this is logical because this bounds 
+\begin_inset Formula $T(n)$
+\end_inset
+
+ between 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ as just shown.
+ We can note that 
+\begin_inset Formula $T(n)=n*n^{\epsilon}$
+\end_inset
+
+ with which we can cleverly build an arithmetic sequence.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given an array that requires sorting, we can note that the first 
+\begin_inset Formula $n-n^{\epsilon}$
+\end_inset
+
+ elements would not require sorting.
+ There are then 
+\begin_inset Formula $n^{\epsilon}$
+\end_inset
+
+ terms which do require sorting.
+ If we define these terms as 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ through 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+ then we could note that each would require 
+\begin_inset Formula $\frac{k*n}{n^{\epsilon}}$
+\end_inset
+
+ swaps s.t.
+ 
+\begin_inset Formula $\sum_{i=1}^{k}x_{k}=\frac{k^{\epsilon}(k+1)}{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Putting these two terms together, we get:
+\begin_inset Formula 
+\[
+\frac{n^{\epsilon}(n+1)}{2}+(n-n^{\epsilon})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have created a sequence where the largest term is 
+\begin_inset Formula $n*n^{\epsilon}$
+\end_inset
+
+ s.t we have shown that there is an infinite sequence of arrays that for
+ 
+\begin_inset Formula $T(n)=\Omega(n)$
+\end_inset
+
+ and 
+\begin_inset Formula $T(n)=O(n^{2})$
+\end_inset
+
+ for every 
+\begin_inset Formula $T(n)$
+\end_inset
+
+.
+ This was intuitive for insertion sort and proved a good launchpad from
+ which to prove this.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 4: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note: this is a long and winded verbal proof.
+ It is much easier to describe in person.
+ A lot of mathematical list-based proofs were mentioned in office hours,
+ but I didn't find them useful as they provided no intuition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can note that Stoogesort sorts correctly for the base cases of list length
+ 
+\begin_inset Formula $n=1$
+\end_inset
+
+ and 
+\begin_inset Formula $n=2$
+\end_inset
+
+ because for 1 it can simply return the item and for 2 it can either return
+ the 2 items or return the 2 items swapped.
+ Since these base cases work, any non-divisble by 3 length wil eventually
+ be split into an item of length 3 and one of these base cases, which can
+ be easily solved.
+ Therefore, this algorithm works for lists of any length.
+\end_layout
+
+\begin_layout Standard
+We can prove it solves for all k by induction by assuming it works for list
+ length up to 
+\begin_inset Formula $k$
+\end_inset
+
+ and showing it works for list length up to 
+\begin_inset Formula $k+1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We can assume that each of the 3 
+\begin_inset Formula $\frac{2(k+1)}{3}$
+\end_inset
+
+ length sub-sorts are completed correctly since we are assuming that any
+ list of length up to 
+\begin_inset Formula $k$
+\end_inset
+
+ sorts correctly.
+ We can note that there are 3 actions
+\end_layout
+
+\begin_layout Enumerate
+Sort first 2/3s
+\end_layout
+
+\begin_layout Enumerate
+Sort second 2/3s
+\end_layout
+
+\begin_layout Enumerate
+Sort first 2/3s
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We therefore know that the first 2/3's must be properly sorted since they
+ were just sorted last in step 3.
+ We also know that the last 1/3 must be properly sorted since it was sorted
+ in step 2 and is not touched in step 3.
+ We must then simply show that these two sorted pieces are as a whole sorted.
+ 
+\end_layout
+
+\begin_layout Standard
+Because step 1 moved the largest items of the first 2/3s to the middle 1/3
+ of the list, these big items should be properly sorted in the last 2/3rds
+ in step 2.
+ As a result these items will either be small enough to be moved correctly
+ in the first 2/3rds in step 3 or be put in the last 1/3rd of the list in
+ step 2.
+ This must then thoroughly sort which we can show by contradiction.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Consider 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ such that 
+\begin_inset Formula $i<j$
+\end_inset
+
+ but 
+\begin_inset Formula $x_{i}>x_{j}$
+\end_inset
+
+.
+ This means that a larger item occurs before a smaller item, invalidating
+ our sort.
+ 
+\end_layout
+
+\begin_layout Enumerate
+We can consider the example where 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ are both in the first 2/3rds.
+ This means both have to be sorted by step 3 so this is impossible.
+\end_layout
+
+\begin_layout Enumerate
+We can consider the example where 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ are both in the last 1/3rd.
+ This means both have to be sorted by step 2 so this is impossible.
+\end_layout
+
+\begin_layout Enumerate
+We can consider where 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ is in the first 2/3rds and 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ is in the last 1/3rd.
+ This must mean that 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ was sorted in the first 2/3rds in step 3.
+ This means that it was not sorted by step 2, otherwise it would have been
+ placed after 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ since it is larger (and being in the last 1/3 means 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ had to have been sorted in step 2).
+ This all implies 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ was not sorted in step 1, because if it were it would be placed near the
+ end of the first 2/3rds, since it is larger than 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ which is in the largest 1/3**.
+ As a result of this, it would be sorted in step 2 to the last 1/3 after
+ 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ and after this it would not be touched in step 3 and would not be in the
+ first 2/3rds.
+ Therefore this case is also impossible.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+**If this were not the case and there were 
+\begin_inset Formula $k/3$
+\end_inset
+
+ larger items after 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ in step 1 and so there would be 
+\begin_inset Formula $k/3$
+\end_inset
+
+ items place into the last 1/3, pushing 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ into the first 2/3rds in step 2, causing this to be case 1
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By showing all these cases are impossible we have proved that stooge sort
+ correctly sorts on all inputs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can now derive a recurrence and use this to bound the asymptotic running
+ time of stoogesort.
+ We can note that we call a recursive call on 3 lists of length 
+\begin_inset Formula $\frac{2}{3}n$
+\end_inset
+
+ so that we have
+\begin_inset Formula 
+\[
+T(n)=3T(\frac{2}{3}n)+c
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where c is some linear value of 
+\begin_inset Formula $\Theta(1)$
+\end_inset
+
+ where the sort handles the actual swapping of values.
+ We can then write
+\begin_inset Formula 
+\[
+T(n)=1+3T(\frac{2}{3}n)=1+3+9T(\frac{4}{9}n)=1+3+3^{2}+...+3^{log_{\frac{3}{2}}n}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then note that in the limit this is simply:
+\begin_inset Formula 
+\[
+\Theta(3^{log_{\frac{3}{2}}n})=\Theta(3^{(log_{3}n)/(log_{3}(3/2)})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can note that we have logs cancel to produce:
+\begin_inset Formula 
+\[
+=\Theta(n^{\frac{1}{log_{3}(\frac{3}{2})}})=\Theta(n^{2.71})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore found that stoogesort will perform asymptotically bounded
+ to this value.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 5: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $T(1)=1,T(n)=T(n-1)+3n-3$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can solve the recurrence exactly by solving a system of linear equations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We begin by plotting some of the points to get:
+\begin_inset Formula 
+\[
+\begin{array}{cc}
+T(1)= & 1\\
+T(2)= & 4\\
+T(3)= & 10\\
+T(4)= & 19
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can note that since this recurrence changes by polynomial degree 1, we
+ can represent this as a function of degree 
+\begin_inset Formula $n+1=2$
+\end_inset
+
+.
+ We are therefore looking for a function:
+\begin_inset Formula 
+\[
+a_{n}=c_{2}n^{2}+c_{1}n+c_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where we can simply plug in our recurrence values as solutions to linear
+ equations which represent our 
+\begin_inset Formula $a_{n}$
+\end_inset
+
+ at each n up to value 
+\begin_inset Formula $n=2$
+\end_inset
+
+ (degree + 1).
+\begin_inset Formula 
+\[
+1=c_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+4=c_{2}+c_{1}+c_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+10=4c_{2}+2c_{1}+c_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solving these we get 
+\begin_inset Formula $f(n)=1.5n^{2}-1.5n+1$
+\end_inset
+
+.
+ We can now prove its correctness by plugging it into the recurrence relation
+ and seeing that it holds for case 
+\begin_inset Formula $n+1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For our base case:
+\begin_inset Formula 
+\[
+f(1)=1.5(1)^{2}-1.5(1)+1=1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For our inductive step:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=T(n)+3n-3
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=1.5n^{2}-1.5n+1+3(n+1)-3
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=1.5(n+1)^{2}-1.5(n+1)+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore shown by induction that this function correctly solves
+ the recurrence equation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\begin_inset Formula $T(1)=1,T(n)=2T(n-1)+2n-1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can start by writing out some values for this recurrence, noting that
+ it seems to grow with factor 
+\begin_inset Formula $2^{n}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{array}{cc}
+T(1)= & 1\\
+T(2)= & 5\\
+T(3)= & 15\\
+T(4)= & 37
+\end{array}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+Doing some careful math we can note that this recurrence is equivalent to
+ 
+\begin_inset Formula $f(n)=3*2^{n}-2n-3$
+\end_inset
+
+.
+ We find this by noting that the recurrence will asymptotially more closely
+ resmemby 
+\begin_inset Formula $c*2^{n}$
+\end_inset
+
+.
+ We can find c by taking the limit of 
+\begin_inset Formula 
+\[
+lim(\frac{T(n)}{2^{n}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To get that our 
+\begin_inset Formula $c=3$
+\end_inset
+
+.
+ We can then essentially guess-and-check to get the rest of our equation.
+ We can prove this equation by plugging the function into the original recurrenc
+e:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For our base case:
+\begin_inset Formula 
+\[
+f(1)=3*2^{1}-2(1)-3=1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For our inductive step
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=2T(n)+2n-1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=2(3*2^{n}-2n-3)+2(n+1)-1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=6*2^{n}-4n-6+2n+2-1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=3*2^{n+1}-2(n+1)-3
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore shown by induction that this function correctly solves
+ the recurrence equation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 6:
+\end_layout
+
+\begin_layout Standard
+We can solve these problems using Master's Theorem, using it to give an
+ asymptotic bound for 
+\begin_inset Formula $T(n)$
+\end_inset
+
+ in each recurrence
+\end_layout
+
+\begin_layout Standard
+Master's Theorem: 
+\begin_inset Formula $T(n)=aT(\frac{n}{b})+cn^{k}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+•
+\begin_inset Formula $T(n)=5T(\frac{n}{3})+n^{3}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $5<3^{2}$
+\end_inset
+
+, we have 
+\begin_inset Formula $T(n)=\Theta(n^{3})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+•
+\begin_inset Formula $T(n)=25T(\frac{n}{4})+n^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $25>4^{2}$
+\end_inset
+
+, we have 
+\begin_inset Formula $T(n)=\Theta(n^{log_{4}25})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+•
+\begin_inset Formula $T(n)=8T(\frac{n}{2})+n^{3}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $8=2^{3}$
+\end_inset
+
+, we have 
+\begin_inset Formula $T(n)=\Theta(n^{3}log(n))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\text{•}T(n)=T(n^{\frac{1}{4}})+1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we have to use a change of variables to solve the problem.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can define 
+\begin_inset Formula $U(n)$
+\end_inset
+
+ such that 
+\begin_inset Formula $U(n)=T(log(n))$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can write the problem as 
+\begin_inset Formula $T(log(n))=T(\frac{1}{4}log(n))+1=U(n)=U(\frac{1}{4}n)+1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So we can note that by the Master Theorem 
+\begin_inset Formula $U(n)=\Theta(log(n))$
+\end_inset
+
+ and so: 
+\begin_inset Formula 
+\[
+U(n)=T(log(n))=U(log(n))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is actually very useful, noting that for any n we plug into 
+\begin_inset Formula $U()$
+\end_inset
+
+ we will get the log of that value.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We therefore have that
+\begin_inset Formula 
+\[
+T(log(n))=U(log(n))\rightarrow T(n)=\Theta(log(log(n))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+Problem 7
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can begin to solve for this more general form by plotting values on the
+ first value n values:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+dx
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can quickly see that these values are changing by 1 every 
+\begin_inset Formula $2^{n}$
+\end_inset
+
+ terms, suggesting we have an exponential growth problem.
+ We can note that this is equivalent to:
+\begin_inset Formula 
+\[
+T(n)-T(n-1)=\lceil log_{2}n\rceil
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then note that these differences 
+\begin_inset Formula $T(n)-T(n-1)$
+\end_inset
+
+ produces a teloscoping sum such that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sum_{k=2}^{n}T(k)-T(k-1)=T(n)-T(1)=\sum_{k=2}^{n}\lceil log_{2}k\rceil
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is found by noticing that in subtracting these 
+\begin_inset Formula $k-1$
+\end_inset
+
+ terms we end up subtracing out all middle terms.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can divide this into two sums: a sum for all terms leading up to the
+ largest 
+\begin_inset Formula $2^{a}$
+\end_inset
+
+ less than n and a sum for all terms following this number.
+\begin_inset Formula 
+\[
+=\sum_{k=2}^{2^{a}}\lceil log_{2}k\rceil+\sum_{k=2^{a}+1}^{n}\lceil log_{2}k\rceil
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can notice that the second term is simply 
+\begin_inset Formula $n-2^{a}$
+\end_inset
+
+ instances of 
+\begin_inset Formula $a+1$
+\end_inset
+
+ and compute the first sum to get:
+\begin_inset Formula 
+\[
+\sum_{l=1}^{a}l*2^{l-1}*(a+1)(n-2^{a})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This first sum can be reduced to:
+\begin_inset Formula 
+\[
+a*2^{a}-2^{a}+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Returning back to terms of 
+\begin_inset Formula $T(n)$
+\end_inset
+
+ we can rewrite this simplified as:
+\begin_inset Formula 
+\[
+T(n)=a*2^{a}-2^{a}+1+(n-2^{a})*(a+1)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n)=n(a+1)-2^{a+1}+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where, as defined, 
+\begin_inset Formula $a(n)=\lfloor log_{2}n\rfloor$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can now prove the correctnes of this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have our base cases 
+\begin_inset Formula $T(1)=0$
+\end_inset
+
+ and 
+\begin_inset Formula $T(2)=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now for our inductive step we consider the 
+\begin_inset Formula $n+1$
+\end_inset
+
+ case.
+ We can break this up into subcases based on if the input to the function
+ is even or odd
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Even case:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=T(\lceil\frac{n+1}{2}\rceil)+T(\lfloor\frac{n+1}{2}\rfloor)+(n+1)-1=2(T(\frac{n+1}{2}))+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then plug in our inductive hypothesis:
+\begin_inset Formula 
+\[
+T(n+1)=2(-2^{\lfloor log_{2}\frac{n+1}{2}\rfloor+1}+\frac{n+1}{2}(\lfloor log_{2}\frac{n+1}{2}\rfloor+1)+1+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=2(-2^{\lfloor log_{2}(n+1)-1\rfloor+1}+\frac{1}{2}(n+1)(\lfloor log_{2}(n+1)-1\rfloor+1)+1)+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then distribute values and multiply by distributing the 2:
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n+1)\rfloor+1}+(n+1)(\lfloor log_{2}(n+1)\rfloor)+2+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n+1)\rfloor+1}+(n+1)(\lfloor log_{2}(n+1)\rfloor+1)+1+n-n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n+1)\rfloor+1}+(n+1)(\lfloor log_{2}(n+1)\rfloor+1)+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+Odd case:
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T(n+1)=T(\lceil\frac{n+1}{2}\rceil)+T(\lfloor\frac{n+1}{2}\rfloor)+(n+1)-1=T(\frac{n+2}{2})+T(\frac{n}{2})+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Plugging in our nductive hypothesis:
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}\frac{n+2}{2}\rfloor+1}+\frac{n+2}{2}(\lfloor log_{2}\frac{n+2}{2}\rfloor+1)+1-2^{\lfloor log_{2}\frac{n}{2}\rfloor+1}+\frac{n}{2}(\lfloor log_{2}\frac{n}{2}\rfloor+1)+1+n
+\]
+
+\end_inset
+
+We can simplify our 
+\begin_inset Formula $log_{2}$
+\end_inset
+
+ values:
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n+2)\rfloor}+\frac{n+2}{2}(\lfloor log_{2}(n+2)\rfloor)-2^{\lfloor log_{2}(n)\rfloor}+\frac{n}{2}(\lfloor log_{2}n\rfloor)+2+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can not proceed generally from here, because we are not sure of the equality
+ of 
+\begin_inset Formula 
+\[
+\lfloor log(n)\rfloor and\lfloor log(n+2)\rfloor
+\]
+
+\end_inset
+
+We can break this into a case where they are equal first:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n)\rfloor}+\frac{n+2}{2}(\lfloor log_{2}(n)\rfloor)-2^{\lfloor log_{2}(n)\rfloor}+\frac{n}{2}(\lfloor log_{2}n\rfloor)+2+n
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n)\rfloor+1}+(n+1)(\lfloor log_{2}(n)\rfloor)+2+n
+\]
+
+\end_inset
+
+Rearranging:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n)\rfloor+1}+(n+1)(\lfloor log_{2}(n)\rfloor+1)+2+n-(n-1)=T(n+1)=-2^{\lfloor log_{2}(n)\rfloor+1}+(n+1)(\lfloor log_{2}(n)\rfloor+1)+1
+\]
+
+\end_inset
+
+We can rewrite this in our inductive form, noting that 
+\begin_inset Formula $\lfloor log_{2}(n+1)\rfloor=\lfloor log_{2}(n)\rfloor$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n+1)\rfloor+1}+(n+1)(\lfloor log_{2}(n+1)\rfloor+1)+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+Now we consider the case 
+\begin_inset Formula $\lfloor log_{2}(n+2)\rfloor=\lfloor log_{2}(n)\rfloor+1$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n)+1\rfloor}+\frac{n+2}{2}(\lfloor log_{2}(n)\rfloor+1)-2^{\lfloor log_{2}(n)\rfloor}+\frac{n}{2}(\lfloor log_{2}n\rfloor)+2+n
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n)\rfloor+2}+\frac{n}{2}(\lfloor log_{2}(n)\rfloor+\frac{n}{2}+\lfloor log_{2}(n)\rfloor+1+(n+1)(\lfloor log_{2}(n)\rfloor)+2+n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Multiplying through we can convert this messy equation (noting 
+\begin_inset Formula $\lfloor log_{2}(n+1)\rfloor=\lfloor log_{2}(n)\rfloor$
+\end_inset
+
+ from case 2 to get:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T(n+1)=-2^{\lfloor log_{2}(n+1)\rfloor+1}+(n+1)(\lfloor log_{2}(n+1)\rfloor+1)+1
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\frac{}{}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
