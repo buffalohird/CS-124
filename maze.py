@@ -19,98 +19,51 @@ class Search:
 			self.grid.append(map(str, input[i+1].split()))
 		"""
 		
-		self.goalStates = []
-		keys = []
-		gates = []
 		for item in self.grid:
 			for state in item:
 				if state == "S":
 					self.agentPosition = (item.index(state), self.grid.index(item))
-				if state == "E":
-					self.goalPosition = (item.index(state), self.grid.index(item))
-				if state[0] == "K":
-					keys.append([str(state[1]), (item.index(state), self.grid.index(item))])
-				if state[0] == "G":
-					gates.append([str(state[1]), (item.index(state), self.grid.index(item))])
 
-		keys.sort(key=lambda item: item[0])
-		gates.sort(key=lambda item: item[0])
+		inputNode = [0, self.agentPosition, self.T, ("K0")]
+		return self.makeSearch(inputNode)
 
-		for key in keys:
-			self.goalStates.append(key[1])
-
-		#states = [j for i in zip(keys, gates) for j in i]
-		#for item in states:
-			#self.goalStates.append(item[1])
-		self.goalStates.append(self.goalPosition)
-
-		inputNode = [0, self.agentPosition, self.T, []]
-		for goal in self.goalStates:
-			inputNode = self.makeSearch(inputNode, goal)
-			j, i = goal
-		
-			"""
-			print "\n"
-			print "returned node from iteration"
-			print inputNode
-			print "\n"
-			"""
-			
-
-		return inputNode[0]
-
-	def makeSearch(self, inputNode, goal):
-		visited = []
+	def makeSearch(self, inputNode):
+		visited = set()
 		node = inputNode
 		fringe = Queue.Queue()
-
-		# put first node on the queue
-		# while (the queue isn't empty)
-		# take something form the queue
-		# get successors
-		# is one of them final?
-		# are these visited? if not add to queue
-		
-
-		while not node[1] == goal:
-			next = self.getSuccessors(node, goal)
+		while True:
+			#for item in visited:
+				#print item
+			#print "\n"
+			next = self.getSuccessors(node)
 			for item in next:
-				if item[1] not in visited:
-				fringe.put(item)
-			visited.append(node[1])
+				j,i = item[1]
+				if self.grid[i][j] == "E":
+					return item[0]
+				#print item
+				if (item[1], item[2], item[3]) not in visited:
+					fringe.put(item)
+
+			visited.add((node[1], node[2], node[3]))
 			if fringe.empty():
 				return [-1, None, None, None]
 			else:
 				node = fringe.get()
 
-			newBool = False
-			while not newBool:
-				if fringe.empty():
-					return [-1, None, None, None]
-				item = fringe.get()
-				if item[1] not in visited:
-					newBool = True
-			node = item
-			visited.append(item[1])
 
-		return node
-
-	def getSuccessors(self, node, goal):
-		currentKeys = node[3]
-		if node[1] == None:
-			return []
+	def getSuccessors(self, node):
+		#currentKeys = node[3]
 		x,y = node[1]
 		potentials = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
 		successors = []
 		for (j, i) in potentials:
 			if j > self.M - 1 or i > self.N -1 or j < 0 or i < 0:
 				continue
-			print "for (%s, %s) looking at successor (%s, %s)" % (x, y, j, i)
-			if self.grid[i][j] == "O" or self.grid[i][j] == "E" or self.grid[i][j] == "S" or (j, i) == goal:
+			if self.grid[i][j] == "E":
+				return [[node[0] + 1, (j, i), node[2], node[3]]]
+			if self.grid[i][j] == "O" or self.grid[i][j] == "S":
 				successors.append([node[0] + 1, (j, i), node[2], node[3]])
 			if self.grid[i][j] == "M":
-				print "hit a monster have lives:", node[2]
-				print "at location ", x, y
 				if node[2] - 1 != 0:
 					successors.append([node[0] + 1, (j, i), node[2] - 1, node[3]])
 			"""
@@ -139,12 +92,7 @@ class Search:
 
 		return successors
 
-input1 = ["4 4 1", "X O O E", "O O X O", "O X X O", "S O O X"]
-input2 = ["5 4 3", "M O O E", "O X X M", "O X X M", "O X X M", "M O O S"]
-input3 = ["4 4 2", "O O O E", "M X O M", "M X O M", "O O O S"]
-input4 = ["4 4 2", "O K2 G2 E", "O O X G1", "O S O O", "O O X K1"]
-input5 = ["4 4 1", "X O O E", "X X X X", "O O O O", "S O O O"]
 newSearch = Search()
-print newSearch.solve(input2)
+print newSearch.solve()
 
 
