@@ -1,0 +1,6 @@
+5 5 2
+S M O M O
+O X O O O
+O X O X O
+O O O X M
+X O M M E

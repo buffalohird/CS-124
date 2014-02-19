@@ -1,24 +1,25 @@
+__author__ = 'thegator12321'
 
 import Queue
-import time
+#import time
 
 class Search:
 
 
 	def solve(self, input=""):
 		self.grid = []
-		
-		
-		
-		self.N, self.M, self.T = map(int, raw_input().split())
+
+
+
+		"""self.N, self.M, self.T = map(int, raw_input().split())
+
 		for item in xrange(self.N):
-			self.grid.append(map(str, raw_input().split()))
-		"""
+			self.grid.append(map(str, raw_input().split()))"""
+
 		self.N, self.M, self.T = map(int, input[0].split())
 		for i in xrange(self.N):
 			self.grid.append(map(str, input[i+1].split()))
-		"""
-		
+
 		self.goalStates = []
 		keys = []
 		gates = []
@@ -48,14 +49,14 @@ class Search:
 		for goal in self.goalStates:
 			inputNode = self.makeSearch(inputNode, goal)
 			j, i = goal
-		
+
 			"""
 			print "\n"
 			print "returned node from iteration"
 			print inputNode
 			print "\n"
 			"""
-			
+
 
 		return inputNode[0]
 
@@ -70,19 +71,12 @@ class Search:
 		# get successors
 		# is one of them final?
 		# are these visited? if not add to queue
-		
+
 
 		while not node[1] == goal:
 			next = self.getSuccessors(node, goal)
 			for item in next:
-				if item[1] not in visited:
 				fringe.put(item)
-			visited.append(node[1])
-			if fringe.empty():
-				return [-1, None, None, None]
-			else:
-				node = fringe.get()
-
 			newBool = False
 			while not newBool:
 				if fringe.empty():
@@ -139,12 +133,14 @@ class Search:
 
 		return successors
 
-input1 = ["4 4 1", "X O O E", "O O X O", "O X X O", "S O O X"]
+input1 = ["5 5 2", "S M O M O", "O X O O O", "O X O X O", "O O O X M", "X O M M E"]
 input2 = ["5 4 3", "M O O E", "O X X M", "O X X M", "O X X M", "M O O S"]
 input3 = ["4 4 2", "O O O E", "M X O M", "M X O M", "O O O S"]
 input4 = ["4 4 2", "O K2 G2 E", "O O X G1", "O S O O", "O O X K1"]
 input5 = ["4 4 1", "X O O E", "X X X X", "O O O O", "S O O O"]
 newSearch = Search()
-print newSearch.solve(input2)
 
 
+
+
+print newSearch.solve(input1)

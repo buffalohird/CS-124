@@ -1,0 +1,4 @@
+3 4 3
+S M O M
+M M X O
+O M M E
