@@ -19,6 +19,8 @@ class Search:
 		"""
 		
 		
+		
+		
 		self.goalStates = []
 		keys = []
 		gates = []
@@ -62,7 +64,7 @@ class Search:
 	def makeSearch(self, inputNode, goal):
 		visited = []
 		node = inputNode
-		fringe = Queue.PriorityQueue()
+		fringe = Queue.Queue()
 		while not node[1] == goal:
 			#print node
 			next = self.getSuccessors(node[1], goal, inputNode[3])
@@ -72,11 +74,11 @@ class Search:
 				if newT > 0:
 					fringe.put([node[0] + 1, item[0], newT, item[2]])
 				#else:
-					#visited.append(item[0])
+					#visited.append(item[1])
 			newBool = False
 			while not newBool:
 				if fringe.empty():
-					return [-1, None, None]
+					return [-1, None, None, None]
 				item = fringe.get()
 				if item[1] not in visited:
 					newBool = True
@@ -125,7 +127,7 @@ class Search:
 input1 = ["4 4 1", "X O O E", "O O X O", "O X X O", "S O O X"]
 input2 = ["5 4 3", "M O O E", "O X X M", "O X X M", "O X X M", "M O O S"]
 input3 = ["4 4 2", "O O O E", "M X O M", "M X O M", "O O O S"]
-input4 = ["4 4 2", "O K1 G2 E", "O O X G1", "O S O O", "O O X K2"]
+input4 = ["4 4 2", "O K2 G2 E", "O O X G1", "O S O O", "O O X K1"]
 input5 = ["4 4 1", "X O O E", "X X X X", "O O O O", "S O O O"]
 newSearch = Search()
 print newSearch.solve(input4)
