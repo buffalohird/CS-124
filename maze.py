@@ -1,4 +1,3 @@
-
 import Queue
 import time
 
@@ -25,7 +24,7 @@ class Search:
 					self.agentPosition = (item.index(state), self.grid.index(item))
 
 		inputNode = [0, self.agentPosition, self.T, ("K0")]
-		return self.makeSearch(inputNode)
+		return self.makeSearch(inputNode)[0]
 
 	def makeSearch(self, inputNode):
 		visited = set()
@@ -39,7 +38,7 @@ class Search:
 			for item in next:
 				j,i = item[1]
 				if self.grid[i][j] == "E":
-					return item[0]
+					return item
 				#print item
 				if (item[1], item[2], item[3]) not in visited:
 					fringe.put(item)
@@ -94,5 +93,4 @@ class Search:
 
 newSearch = Search()
 print newSearch.solve()
-
 
