@@ -1,6 +1,5 @@
 import Queue
 import time
-import copy
 
 class Search:
 
@@ -9,37 +8,25 @@ class Search:
 		self.grid = []
 		
 		
+		
 		self.N, self.M, self.T = map(int, raw_input().split())
-		startFoundBool = False
 		for item in xrange(self.N):
-			inputRow = map(str, raw_input().split())
-			self.grid.append(inputRow)
-			if not startFoundBool and 'S' in inputRow:
-				startFoundBool = True
-				self.agentPosition = (inputRow.index('S'), item)
+			self.grid.append(map(str, raw_input().split()))
 		"""
 		self.N, self.M, self.T = map(int, input[0].split())
-		startFoundBool = False
 		for i in xrange(self.N):
-			inputRow = map(str, input[i+1].split())
-			self.grid.append(inputRow)
-			if not startFoundBool and 'S' in inputRow:
-				startFoundBool = True
-				self.agentPosition = (inputRow.index('S'), i)
+			self.grid.append(map(str, input[i+1].split()))
 		"""
+		
+		for item in self.grid:
+			for state in item:
+				if state == "S":
+					self.agentPosition = (item.index(state), self.grid.index(item))
 
-		
-		
-		
-	
-
-		inputNode = [0, self.agentPosition, self.T, ""]
+		inputNode = [0, self.agentPosition, self.T, ("K0")]
 		return self.makeSearch(inputNode)[0]
 
 	def makeSearch(self, inputNode):
-		j, i = inputNode[1]
-		if self.grid[i][j] == "E":
-			return inputNode
 		visited = set()
 		visited.add((inputNode[1], inputNode[2], inputNode[3]))
 		node = inputNode
@@ -63,45 +50,50 @@ class Search:
 
 
 	def getSuccessors(self, node):
+		#currentKeys = node[3]
 		x,y = node[1]
 		potentials = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
 		successors = []
 		for (j, i) in potentials:
 			if j > self.M - 1 or i > self.N -1 or j < 0 or i < 0:
 				continue
-			potentialName = self.grid[i][j]
-			if potentialName == "X":
-				continue
-			elif potentialName == "E":
+			if self.grid[i][j] == "E":
 				return [[node[0] + 1, (j, i), node[2], node[3]]]
-			elif potentialName == "O" or potentialName == "S":
+			if self.grid[i][j] == "O" or self.grid[i][j] == "S":
 				successors.append([node[0] + 1, (j, i), node[2], node[3]])
-			elif potentialName == "M":
+			if self.grid[i][j] == "M":
 				if node[2] - 1 != 0:
 					successors.append([node[0] + 1, (j, i), node[2] - 1, node[3]])
-			
-			elif potentialName[0] == "G":
+			"""
+			if self.grid[i][j][0] == "G":
 				for key in node[3]:
-					if self.grid[i][j][1] == key:
+					if self.grid[i][j][1] == key[0][1]:
 						successors.append([node[0] + 1, (j, i), node[2], node[3]])
-
-			elif potentialName[0] == "K":
+			if self.grid[i][j][0] == "K":
 				foundKeyBool = False
 				for key in node[3]:
-					if potentialName[1] == key:
+					if self.grid[i][j][1] == key[0][1]:
 						successors.append([node[0] + 1, (j, i), node[2], node[3]])
-						continue
+						foundKeyBool = True
 				if foundKeyBool == False:
-					successors.append([node[0] + 1, (j, i), node[2], str(sorted(node[3][:] + potentialName[1]))])
-			
-		
+					currentKeys.append([self.grid[i][j], (j, i)])
+					successors.append([node[0], (j, i), node[2], currentKeys])
+			"""
+
+
+		"""
+		print "###state %s, %s has succesors:" % (str(x), str(y))
+		for item in successors:
+			print item
+		print "\n"
+		"""
 
 		return successors
 
 input1 = ["4 4 1", "X O O E", "O O X O", "O X X O", "S O O X"]
 input2 = ["5 4 3", "M O O E", "O X X M", "O X X M", "O X X M", "M O O S"]
 input3 = ["4 4 2", "O O O E", "M X O M", "M X O M", "O O O S"]
-input4 = ["4 4 2", "O K1 G2 E", "M M X G1", "O S O O", "O O X K2"]
+input4 = ["4 4 2", "O K2 G2 E", "O O X G1", "O S O O", "O O X K1"]
 input5 = ["4 4 1", "X O O E", "X X X X", "O O O O", "S O O O"]
 newSearch = Search()
 print newSearch.solve(input4)
