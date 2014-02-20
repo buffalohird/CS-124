@@ -10,8 +10,13 @@ class Search:
 		
 		
 		self.N, self.M, self.T = map(int, raw_input().split())
+		startFoundBool = False
 		for item in xrange(self.N):
-			self.grid.append(map(str, raw_input().split()))
+			inputRow = map(str, raw_input().split())
+			self.grid.append(inputRow)
+			if not startFoundBool and 'S' in inputRow:
+				startFoundBool = True
+				self.agentPosition = (inputRow.index('S'), item)
 		"""
 		self.N, self.M, self.T = map(int, input[0].split())
 		for i in xrange(self.N):
@@ -19,16 +24,18 @@ class Search:
 		"""
 		
 		
-		for item in self.grid:
-			for state in item:
-				if state == "S":
-					self.agentPosition = (item.index(state), self.grid.index(item))
+	
 
 		inputNode = [0, self.agentPosition, self.T, ["K6"]]
 		return self.makeSearch(inputNode)[0]
 
 	def makeSearch(self, inputNode):
 		visited = [[inputNode[1], inputNode[2], inputNode[3]]]
+		visitedDict = {}
+		if inputNode[1] not in visitedDict:
+			visitedDict[inputNode[1]] = {}
+		visitedDict[inputNode[1]][inputNode[2]] = inputNode[3]
+		print visitedDict
 		node = inputNode
 		fringe = Queue.Queue()
 		while True:
@@ -59,49 +66,33 @@ class Search:
 		for (j, i) in potentials:
 			if j > self.M - 1 or i > self.N -1 or j < 0 or i < 0:
 				continue
-			if self.grid[i][j] == "E":
+			potentialName = self.grid[i][j]
+			if potentialName == "E":
 				return [[node[0] + 1, (j, i), node[2], node[3]]]
-			if self.grid[i][j] == "O" or self.grid[i][j] == "S":
+			if potentialName == "O" or potentialName == "S":
 				successors.append([node[0] + 1, (j, i), node[2], node[3]])
-			if self.grid[i][j] == "M":
+			if potentialName == "M":
 				if node[2] - 1 != 0:
 					successors.append([node[0] + 1, (j, i), node[2] - 1, node[3]])
 
-			if self.grid[i][j][0] == "G":
+			if potentialName[0] == "G":
 				for key in node[3]:
 					#print key
 					if self.grid[i][j][1] == key[1]:
 						successors.append([node[0] + 1, (j, i), node[2], node[3]])
 
-			if self.grid[i][j][0] == "K":
+			if potentialName[0] == "K":
 				#print "found a key"
 				foundKeyBool = False
 				for key in node[3]:
 					#print key
 
-					if self.grid[i][j][1] == key[1]:
+					if potentialName[1] == key[1]:
 						successors.append([node[0] + 1, (j, i), node[2], node[3]])
 						continue
 						#foundKeyBool = True
 				if foundKeyBool == False:
-					successors.append([node[0] + 1, (j, i), node[2], node[3] + [self.grid[i][j]]])
-
-			"""
-			if self.grid[i][j][0] == "G":
-				for key in node[3]:
-					if self.grid[i][j][1] == key[0][1]:
-						successors.append([node[0] + 1, (j, i), node[2], node[3]])
-			if self.grid[i][j][0] == "K":
-				foundKeyBool = False
-				for key in node[3]:
-					if self.grid[i][j][1] == key[0][1]:
-						successors.append([node[0] + 1, (j, i), node[2], node[3]])
-						foundKeyBool = True
-				if foundKeyBool == False:
-					currentKeys.append([self.grid[i][j], (j, i)])
-					successors.append([node[0], (j, i), node[2], currentKeys])
-			"""
-
+					successors.append([node[0] + 1, (j, i), node[2], node[3] + [potentialName]])
 
 		"""
 		print "###state %s, %s has succesors:" % (str(x), str(y))
