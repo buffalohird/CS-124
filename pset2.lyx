@@ -90,6 +90,119 @@ Problem 1:
 \end_layout
 
 \begin_layout Standard
+For a d-ary heap, we can show how we implement decreaseKey(v, k), deleteMin():,
+ insertKey(v, k) and their time complexity.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+decreaseKey(v, k): we implement this by simply modifying the value at the
+ pointer given and then swap this value with one of its parents if they
+ are smaller than k until this no longer possible and the tree is now balanced.
+ The first step is 
+\begin_inset Formula $O(1)$
+\end_inset
+
+ and the next step is 
+\begin_inset Formula $log_{d}(n)$
+\end_inset
+
+.
+ This is true, because k will have up to 
+\begin_inset Formula $log_{d}(n)$
+\end_inset
+
+ levels to propogate upward in a d-ary tree of size n.
+ This is because the height of the tree is 
+\begin_inset Formula $log_{d}(n)$
+\end_inset
+
+ so we can propogate upward no farther than this.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+insertKey(v, k): We can accomplish this by traversing down the heap until
+ we reach the last leaf.
+ The depth of a d-ary tree with 
+\begin_inset Formula $|V|$
+\end_inset
+
+ nodes should simply be 
+\begin_inset Formula $\frac{log|V|}{logd}$
+\end_inset
+
+ so insert should take this amount of time + a constant 
+\begin_inset Formula $O(1)$
+\end_inset
+
+ to do the insertion.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+deletemin(): We accomplish this by traversing down the heap until we reach
+ the last leaf and search for the minimum node by viewing each child of
+ the vertices visited at each depth.
+ This has runtime 
+\begin_inset Formula $d*\frac{log|V|}{logd}$
+\end_inset
+
+ because we are repeating the same process as insertKey(v, k) but now must
+ look at all child nodes s.t.
+ we end up viewing all d nodes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We want to optimize Dijkstra's Algorithm such that we minimize its runtime.
+ We note that Djikstra's Algorithm contains at most 
+\begin_inset Formula $m$
+\end_inset
+
+ inserts and 
+\begin_inset Formula $n$
+\end_inset
+
+ deletes.
+ Therefore since it uses d-ary trees, this takes time 
+\begin_inset Formula $mlog_{d}n+nlog_{d}n$
+\end_inset
+
+.
+ We therefore must choose choose a 
+\begin_inset Formula $d$
+\end_inset
+
+ such that we minimize this entire expression.
+ We could do this by solving for 0 in the expression's derivative.
+\end_layout
+
+\begin_layout Standard
 \begin_inset VSpace medskip
 \end_inset
 
@@ -147,15 +260,20 @@ We discussed in class that we can get a topological list ordering of a graph
 \end_layout
 
 \begin_layout Standard
-With this we can then iterate through this list in time 
+We iterate through all edges in time 
 \begin_inset Formula $O(|V|)$
 \end_inset
 
- giving initial values 0 to each source and 
+ and if all are negative give intial values 
 \begin_inset Formula $-\infty$
 \end_inset
 
- to each non-source.
+ to all nodes.
+ Otherwise we can then iterate through this list in time 
+\begin_inset Formula $O(|V|)$
+\end_inset
+
+ giving initial values 0 to node.
  These values represent the currently observed longest path to these nodes.
 \end_layout
 
@@ -227,19 +345,110 @@ Upon completing this, we can simply iterate through our topological list
 \end_layout
 
 \begin_layout Standard
-We can see that this process misses a few cases.
- Namely: (i) when there are large magnitude negative values and (ii) when
- all values are negative.
+We note that we have the negative and mixed starting case s.t.
+ if there are only negative values then summing proceeds normally.
+ However, if we set initial values of 0, all negatives are less than 0.
+ 0 is an apt start value in the mixed (or positive) case, however, because
+ this precludes missing a path because of previous negative edges reaching
+ a node.
+ In this case, the path will be smaller than the current path of 0 and it
+ will not be worth considering negative edges in our longest path.
+ They are only worth examining where there are no positive (or 0) edges.
 \end_layout
 
 \begin_layout Standard
-We handle case (i) by
+\begin_inset VSpace medskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-We can handle case (ii) easily by noting that if we return a negative longest
- path, negate all edges in the graph and then find the shortest path by
- the same method.
+Time complexity: We noted in the explanation that this method utilizes multiple
+ steps of time 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+, 
+\begin_inset Formula $O(|V|)$
+\end_inset
+
+, or 
+\begin_inset Formula $O(|E|)$
+\end_inset
+
+.
+ Since these are summed, we are only left with some combination of 
+\begin_inset Formula $a*O(|V|)+b*O(|E|)+c*O(|V|+|E|)$
+\end_inset
+
+ s.t our algorithms runtime is 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+.
+ This is definitely efficient as it is of the same time complexity magnitude
+ of BFS and DFS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of correctness: We can inductively prove this algorithm.
+ For 1 or 2 nodes the algorithm works by returning 0 or the path between
+ the two nodes.
+ We then must show it works in the 
+\begin_inset Formula $k+1$
+\end_inset
+
+ nodes case given it works for 
+\begin_inset Formula $k$
+\end_inset
+
+ nodes.
+ If it works for 
+\begin_inset Formula $k$
+\end_inset
+
+ we can return the longest path for k nodes.
+ We can therefore for 
+\begin_inset Formula $k+1$
+\end_inset
+
+ return (where F(k) = longest path of k and E(k) = all edges to k) 
+\begin_inset Formula $max(F(k),F(k)+max(E(k+1)))$
+\end_inset
+
+.
+ Essentially all this means is either 
+\begin_inset Formula $k+1$
+\end_inset
+
+ hasn't produced a longer path, in which case just return the same one as
+ before.
+ If it has produced a longer path that extended 
+\begin_inset Formula $F(k)$
+\end_inset
+
+, add it to 
+\begin_inset Formula $F(k)$
+\end_inset
+
+ and return this value.
+ Therefore if we have calculated 
+\begin_inset Formula $F(k)$
+\end_inset
+
+, we can easily calculate 
+\begin_inset Formula $F(k+1)$
+\end_inset
+
+ by checking if this occurs.
 \end_layout
 
 \begin_layout Standard
@@ -261,6 +470,58 @@ Problem 3:
 \end_layout
 
 \begin_layout Standard
+We can write this algorithm by essentially modifying BFS such that we iterate
+ through all enemies for each player to see if we can assign teams such
+ that no two enemies are on the same team.
+ We accomplish this by picking an arbitrary initial player and assigning
+ them to one of the teams and add them to our queue.
+ While our queue is not empty we pop off a player (will be already assigned
+ a team) and view its outgoing edge destination nodes.
+ For each of these nodes, if we have already seen it and if so we see if
+ it has been given the same team as the current node and therefore is enemy.
+ If so, we return impossible.
+ If not yet seen, we assign this node to the other team such that enemy
+ links are satisfied in this step.
+ We then mark this node as visited such that we do not need to assign it
+ a team again and add it to the queue.
+ By iterating through this process for each player and its enemy links,
+ we will eventually give a team assignment for all players.
+ Since edges are undirected and we compare all players' team to their enemies'
+ teams, we will see in our BFS modification if we ever make an impossible
+ assignment.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As this algorithm involves viewing each edge and node as does BFS we have
+ a runtime of 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+.
+ We do other small operations such as compare teams, but these operations
+ should be constant time.
+ We can show the correctness of this algorithm by noting that the algorithm
+ will place every two directly connected nodes on opposing teams since it
+ assigns the opposite team to any directly connected edge.
+ Any graph including a cycle or other structure such that a student's team
+ is predefined and this definition conflicts with any other possible arrangement
+, then we know we would require an additional team for this partitioning
+ to be possible.
+ This therefore precludes all cases where a satisfying two team assignment
+ could not be found.
+ Since this algorithm always finds a correct assignment or returns impossible
+ if more than 2 teams are required, we have successfully reasoned about
+ its correctness.
+\end_layout
+
+\begin_layout Standard
 \begin_inset VSpace medskip
 \end_inset
 
@@ -276,6 +537,122 @@ Problem 4:
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+We want to make Dijkstra's Algorithm run in time 
+\begin_inset Formula $O(|E|+|V|*l)$
+\end_inset
+
+ where l is the length of the largest edge in the graph.
+ We can accomplish this by changing the heap sructure the algorithm utilizes
+ such that we are changing the time complexity of its subprocesses.
+ We note that these subprocesses are 
+\begin_inset Formula $|E|$
+\end_inset
+
+ inserts and 
+\begin_inset Formula $|V|$
+\end_inset
+
+ deletes.
+ To therefore execute in time 
+\begin_inset Formula $O(|E|+|V|*l)$
+\end_inset
+
+, we need inserts to be constant such that 
+\begin_inset Formula $|E|*O(1)=O(|E|)$
+\end_inset
+
+ and all deletes take in total 
+\begin_inset Formula $O(|V|*l)$
+\end_inset
+
+ time.
+ We find 
+\begin_inset Formula $l$
+\end_inset
+
+ quickly in time 
+\begin_inset Formula $O(|E|)$
+\end_inset
+
+.
+ We can then create a list of length 
+\begin_inset Formula $|V|*l$
+\end_inset
+
+.
+ We do this because then for any path with length 
+\begin_inset Formula $n$
+\end_inset
+
+, we can add this path at index 
+\begin_inset Formula $n$
+\end_inset
+
+ in the list.
+ This is guaranteed to exist, because our list length is the same as there
+ being 
+\begin_inset Formula $|V|*l$
+\end_inset
+
+, whereas if the longest path was every node connected by the largest edge,
+ the largest path would be 
+\begin_inset Formula $(|V|-1)*l$
+\end_inset
+
+ .
+ If we had 
+\begin_inset Formula $|V|$
+\end_inset
+
+ edges in this path, we would then have a cycle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This structure gives us constant time insert and update as we can index
+ directly into position 
+\begin_inset Formula $n$
+\end_inset
+
+ for a path of length 
+\begin_inset Formula $n$
+\end_inset
+
+ without having to maintain any heap invariants or structural costs.
+ Deletemin() is then just linear, executed by iterating through our list
+ until we find the smallest node.
+ This has to be the min node because edges are non-negative such that adding
+ any additional edges to the node will increase its path length.
+ Therefore, we only have to iterate through the list once, giving a runtime
+ of 
+\begin_inset Formula $L*|V|$
+\end_inset
+
+ for deleteMin.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore pluggin in these values we get runtime 
+\begin_inset Formula $O(|E|+|V|*l)$
+\end_inset
+
+ as desired.
 \end_layout
 
 \begin_layout Standard
