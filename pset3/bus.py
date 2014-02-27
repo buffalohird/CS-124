@@ -21,12 +21,12 @@ class moneyBus:
 		for vertex in xrange(self.N):
 			for edge in self.edges:
 				newPathCost = distance[edge[0]] + self.calcPathCost(edge)
-				if distance[edge[0]] + self.calcPathCost(edge) < distance[edge[1]]:
+				if newPathCost < distance[edge[1]]:
 					distance[edge[1]] = newPathCost
 					predecessor[edge[1]] = edge[0]
 
 		if distance[self.N - 1] == float("inf"):
-			return None
+			return "none"
 
 		for edge in self.edges:
 			if distance[edge[0]] + self.calcPathCost(edge) < distance[edge[1]]:
