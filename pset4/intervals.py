@@ -7,48 +7,18 @@ class Intervals:
 		self.a = map(int, raw_input().split())
 		self.b = map(int, raw_input().split())
 
-		"""
-		print self.k
-		print "\n"
-		for item in self.a:
-			print item
-		print "\n"
-		for item in self.b:
-			print item
-		"""
+		newArray = sorted(zip(self.a,self.b))
+		arrayEnd = max(self.b)
+		#arrayStart = max(self.a)
+		values = [0] * arrayEnd
 
-		intervals = []
+		for (a,b) in newArray:
+			print a, b
+			for i in xrange(b - a):
+				values[a + i] += 1
 
-		for index in xrange(len(self.a)):
-			#print intervals
-			intervalStart = self.a[index]
-			intervalEnd = self.b[index]
-			addedBool = False
-			if len(intervals) == 0:
-				intervals.append([[intervalStart, intervalEnd]])
-				continue
-			for group in intervals:
-				overlapBool = False
-				for item in group:
-					if intervalStart == item[0] and intervalEnd == item[1]:
-						addedBool = True
-						continue
-					if intervalStart <= item[0]:
-						if intervalEnd > item[0]:
-							overlapBool = True
-							#print "[%d, %d]  overlapping prexisting [%d, %d]" % (intervalStart, intervalEnd, item[0], item[1])
-					elif intervalStart > item[0]:
-						if intervalStart < item[1]:
-							overlapBool = True
-							#print "[%d, %d]  overlapping prexisting [%d, %d]" % (intervalStart, intervalEnd, item[0], item[1])
-				if overlapBool == False:
-					#print "adding", intervalStart, intervalEnd
-					addedBool = True
-					group.append([intervalStart, intervalEnd])
-			if addedBool == False:
-				intervals.append([[intervalStart, intervalEnd]])
-					
-		return len(intervals)
+		return max(values)
+
 
 
 problem = Intervals()
