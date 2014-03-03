@@ -4,36 +4,25 @@ class Intervals:
 
 	def solve(self):
 		self.k = int(raw_input())
-		self.a = map(int, raw_input().split())
-		self.b = map(int, raw_input().split())
+		self.a = map(lambda x: [int(x), 1], raw_input().split())
+		self.b = map(lambda y: [int(y), -1], raw_input().split())
 
-		newArray = sorted(zip(self.a,self.b))
-		maxCounter = 0
-		counter = 0
-		aCounter = 0
-		bCounter = 0
-		while True:
-			a = newArray[aCounter][0]
-			b = newArray[bCounter][1]
-			previousB = newArray[bCounter - 1][1]
-			#print a, b, counter
-			if a < b:
-				counter += 1
-				aCounter += 1
-			else:
-				maxCounter = max(maxCounter, counter)
-				aCounter -= counter
-				counter = 0
-				bCounter += 1
+		arrayEnd = max(self.b)[0]
+		values = [0] * arrayEnd * 2
 
-			if aCounter >= self.k or bCounter >= self.k:
-				return maxCounter
+		newList = radixsort(self.a + self.b)
+		newListLength = len(newList)
+		for index in xrange(newListLength):
+			values[index] += newList[index][1] + values[index - 1]
 
+		return max(values)
 
 
 
 problem = Intervals()
 print problem.solve()
+
+
 
 
 
