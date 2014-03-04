@@ -1,22 +1,47 @@
-
+import threading
 
 class Intervals:
 
+	def sortInput(self, array):
+		if array == "a":
+			self.a = sorted(map(int, raw_input().split()))
+		else:
+			self.b = sorted(map(int, raw_input().split()))
+
 	def solve(self):
 		self.k = int(raw_input())
-		self.a = map(lambda x: [int(x), 1], raw_input().split())
-		self.b = map(lambda y: [int(y), -1], raw_input().split())
-		values = [0] * self.k * 2
-		newList = sorted(self.a + self.b)
-		newListLength = len(newList)
-		print newList
+		aThread = threading.Thread(target=self.sortInput, args='a')
+		aThread.daemon = True
+		aThread.start()
 
-		for index in xrange(newListLength / 2 + 5):
-			values[index] += newList[index][1] + values[index - 1]
-		return max(values)
+		bThread = threading.Thread(target=self.sortInput, args='b')
+		bThread.daemon = True
+		bThread.start()
+
+		aThread.join()
+		bThread.join()
+
+		aIndex = 0
+		bIndex = 0
+		value = 0
+		maxValue = 0
+
+		while aIndex < self.k / (3/2):
+			if self.a[aIndex] >= self.b[bIndex]:
+				bIndex += 1
+				value -= 1
+			else:
+				aIndex += 1
+				value += 1
+				maxValue = max(maxValue, value)
+
+		return maxValue
+
 
 problem = Intervals()
 print problem.solve()
+
+
 
 
 
