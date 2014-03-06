@@ -1,0 +1,511 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Buffalo Hird
+\end_layout
+
+\begin_layout Standard
+CS 124
+\end_layout
+
+\begin_layout Standard
+Assignment 4
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 2: To solve this problem we can consider the 2 machines as we greedily
+ add items 
+\begin_inset Formula $j_{1}$
+\end_inset
+
+through 
+\begin_inset Formula $j_{n}$
+\end_inset
+
+ to the machine with the smallest stack.
+ We want to show that this has a worst case performance of 
+\begin_inset Formula $\frac{3}{2}$
+\end_inset
+
+ of the ideal performance given a smarter non-greedy algorithm.
+ We first give an example for this worst performance
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given list [1,1,1,1,1,1,1,1,1,1,10] our greedy algorithm will grow stacks
+ 1 and 2 until we have value 5 and the last 10 is still to be assigned.
+ This means that 5 units will occur after which the last 10 will be executed
+ to give a time of 15.
+ If we more smartly arranged this, however, we would run all 10 1's in one
+ machine and the 10 in the other such that our runtime is 10.
+ As 15 is 
+\begin_inset Formula $\frac{3}{2}$
+\end_inset
+
+ 10 we have found this example.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This example is actually quite enlightening.
+ We note that the completion time is:
+\end_layout
+
+\begin_layout Enumerate
+At least as big as the biggest job
+\end_layout
+
+\begin_layout Enumerate
+At least as big as half the sum of the jobs
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that in our worst case example is when the biggest job is equal
+ in size to the sum of all other jobs.
+ We can formalize this by noting that the different in height between our
+ two stacks as we greedily build them will never be greater than our max
+ item.
+ This is true, because we assign items to the smaller stuck, such that if
+ we are adding to a stack it must be smaller or equal in size to the other
+ stack.
+ Therefore we only produce a new larger stack if 
+\begin_inset Formula $|smallerStack|$
+\end_inset
+
+
+\begin_inset Formula $+|newItem|>|largerStack|$
+\end_inset
+
+.
+ The largest item we can add is clearly the largest item, such that our
+ gap is maximized when we have even stacks and arbitrarily add our largest
+ item to one of them.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now that we have shown the bounds of this gap we can show why this produces
+ the worst-case results.
+ This is the case because it inherently produces the longest time period
+ in which one of the stacks is inoperational and we have divided the performance
+ of our total machine by half as only one stack is operational.
+ We can bound this value by consider the case:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have the worst case where our max = 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ of the sum without the max.
+ We therefore let 
+\begin_inset Formula $y=maxItem$
+\end_inset
+
+, 
+\begin_inset Formula $x=sumHalf$
+\end_inset
+
+.
+ We therefore have the cases where our stacks are either 
+\begin_inset Formula $[x,x][y]$
+\end_inset
+
+ or 
+\begin_inset Formula $[x,y][x]$
+\end_inset
+
+, meaning that either we calculate the rest of the sum in stack1 and max
+ in the other, or calculate max after calculating each half of the sum concurren
+tly.
+ We can bound 
+\begin_inset Formula $x\leq y\leq2x$
+\end_inset
+
+ as if 
+\begin_inset Formula $y<x$
+\end_inset
+
+ then our worst case scenario would execute in time 
+\begin_inset Formula $<2x$
+\end_inset
+
+ which is actually the faster case and therefore not worst case bounds..
+ If 
+\begin_inset Formula $y>2x$
+\end_inset
+
+, then it would dominate x, in that regardless of if we had 
+\begin_inset Formula $[x,x][y]$
+\end_inset
+
+ or 
+\begin_inset Formula $[x,y][x]$
+\end_inset
+
+ the runtime would be dominated by 
+\begin_inset Formula $y$
+\end_inset
+
+.
+ More formally, we can compare the calculation time of these sum halfs and
+ the largest item to get the ratio:
+\begin_inset Formula 
+\[
+\frac{y+x}{2x}=\frac{>3x}{2x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+such that we spend a majority time executing y so executing it after x only
+ adds runtime 
+\begin_inset Formula $<\frac{1}{2}$
+\end_inset
+
+ of the total runtime.
+ We find maximizing for our potential worst cases 
+\begin_inset Formula $x\leq y\leq2x$
+\end_inset
+
+ we get the largest runtime when 
+\begin_inset Formula $y=2x$
+\end_inset
+
+ such that our runtime is
+\begin_inset Formula 
+\[
+\frac{y+x}{2x}=\frac{3x}{2x}=\frac{3}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Explicitly, in this case executing concurrenctly 
+\begin_inset Formula $[x,x][y]$
+\end_inset
+
+ we could finish in time 
+\begin_inset Formula $y=2x=2x$
+\end_inset
+
+ but instead we finish in time 
+\begin_inset Formula $3x$
+\end_inset
+
+.
+ We have therefore proven our worst case bounds for our greedy algorithm
+ is 
+\begin_inset Formula $\frac{3}{2}$
+\end_inset
+
+ of our best-case running time.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the general case with 
+\begin_inset Formula $m$
+\end_inset
+
+ machines we can show that this same solution strategy holds.
+ Our worst case scenario still includes when all 
+\begin_inset Formula $m$
+\end_inset
+
+ machines are equally filled but we have our max operation still to compute.
+ This means we must wait 
+\begin_inset Formula $\alpha x+y$
+\end_inset
+
+ time for completion where 
+\begin_inset Formula $x$
+\end_inset
+
+ is 
+\begin_inset Formula $\frac{1}{m}$
+\end_inset
+
+ of the stack excluding the largest item and 
+\begin_inset Formula $y$
+\end_inset
+
+ is the size of the largest item.We know the gap between stack heights is
+ bounded by 
+\begin_inset Formula $y$
+\end_inset
+
+ because we places items onto the shortest stack such that a stack can never
+ be shorter by more than 
+\begin_inset Formula $y$
+\end_inset
+
+ or otherwise we would have added to this stack instead of a now taller
+ one.
+ A new stack height is bounded by 
+\begin_inset Formula $|shortestStack|+|item|>|largestStack|$
+\end_inset
+
+.
+ To produce a gap larger than 
+\begin_inset Formula $y$
+\end_inset
+
+ we would have had to have added an item larger than the largest item which
+ is impossible.
+ We therefore maximize our gap when all our stacks are equal such that we
+ get a new largest height from 
+\begin_inset Formula $|shortestStack|=|largestStack|\rightarrow|largestStack|+|maxItem|$
+\end_inset
+
+.
+ This produces the largest period where only 1 machine is operational and
+ we reduce our performance to 
+\begin_inset Formula $\frac{1}{m}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The same previous logic holds for 
+\begin_inset Formula $m$
+\end_inset
+
+ instead of 2 such that we bound 
+\begin_inset Formula $x\leq y\leq(m+(m-1))x$
+\end_inset
+
+.
+ This is the case because given that we reallocate and assign the largest
+ item to a machine, we can fit in the case of all equal stacks 
+\begin_inset Formula $m$
+\end_inset
+
+ as this is our tallest item and fill the additional 
+\begin_inset Formula $m-1$
+\end_inset
+
+ stacks with 
+\begin_inset Formula $m$
+\end_inset
+
+ 
+\begin_inset Formula $x$
+\end_inset
+
+ items each to get 
+\begin_inset Formula $m-1$
+\end_inset
+
+ additional 
+\begin_inset Formula $x$
+\end_inset
+
+ items.
+ In the worst case where we have all equal stacks except one has the additional
+ 
+\begin_inset Formula $y$
+\end_inset
+
+ element.
+ To do this, we essentially rotate our 
+\begin_inset Formula $x$
+\end_inset
+
+ elements such that we have 
+\begin_inset Formula $m$
+\end_inset
+
+ stacks of 
+\begin_inset Formula $m-1$
+\end_inset
+
+ 
+\begin_inset Formula $x$
+\end_inset
+
+ elements.
+ We then have worst case speed of: 
+\begin_inset Formula 
+\[
+\frac{y+(m-1)x}{mx}=\frac{mx+(m-1)x}{mx}=\frac{2m-1}{m}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore bounded by the same logic as in the 
+\begin_inset Formula $m=2$
+\end_inset
+
+ case that our greedy algorithm is at worst 
+\begin_inset Formula $\frac{2m-1}{m}$
+\end_inset
+
+ the speed of our ideal implementation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 4:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

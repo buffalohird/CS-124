@@ -1,0 +1,1107 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Buffalo Hird
+\end_layout
+
+\begin_layout Standard
+CS 124
+\end_layout
+
+\begin_layout Standard
+Assignment 4
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1: To solve this, we need to find a way of set covering which allows
+ us to solve in k steps, but our greedy algorithm will use 
+\begin_inset Formula $logn$
+\end_inset
+
+ steps, where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of items in the domain.
+ For 
+\begin_inset Formula $k=3$
+\end_inset
+
+, we can equally assign each item iteratively in the domain with 
+\begin_inset Formula $n$
+\end_inset
+
+ items, such that 
+\begin_inset Formula $x_{i}=1,x_{i+1}=2,...,x_{i+k}=k$
+\end_inset
+
+.
+ We proceed incrementing 
+\begin_inset Formula $i$
+\end_inset
+
+ until we have supplied a value to each item in the domain so that there
+ are 
+\begin_inset Formula $\lfloor\frac{n}{k}\rfloor$
+\end_inset
+
+ items for each value.
+ By doing this, we can construct 3 (or k) sets that cover the domain, by
+ making a set of all 1's, all 2's, etc.
+ for all k assignments.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then design sets such that we have a set for 
+\begin_inset Formula $2^{k-i}$
+\end_inset
+
+ elements for 
+\begin_inset Formula $0\leq i\leq k$
+\end_inset
+
+ such that we have 
+\begin_inset Formula $log(n)$
+\end_inset
+
+ sets as we divide n into decreasing powers of 2 which is the definition
+ of 
+\begin_inset Formula $log_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then run through our greedy algorithm to prove that it will find a 
+\begin_inset Formula $log(n)$
+\end_inset
+
+ set cover while a 
+\begin_inset Formula $k$
+\end_inset
+
+ set cover is available.
+ We note that in each step for a given 
+\begin_inset Formula $R$
+\end_inset
+
+ remaining uncovered items, there will be at most 
+\begin_inset Formula $\lceil\frac{R}{k}\rceil$
+\end_inset
+
+ covered by each k set, but 
+\begin_inset Formula $\frac{R}{2}$
+\end_inset
+
+ covered by the next item of size logarithmic in terms of n.
+ Therefore, our greedy algorithm will choose the next largest log set, subdividi
+ng the remaining uncovered domain by 2.
+ As we have equally spaced our items in each set in k, we will always have
+ 
+\begin_inset Formula $ $
+\end_inset
+
+
+\begin_inset Formula $\sim\frac{R}{k}$
+\end_inset
+
+ items which could be covered by each of the 
+\begin_inset Formula $k$
+\end_inset
+
+ ideal sets, but this value is smaller and greedily less useful than 
+\begin_inset Formula $\frac{R}{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we will choose the largest available log set in each iteration, we will
+ continually half the domain until we have covered the entire domain in
+ 
+\begin_inset Formula $log(n)$
+\end_inset
+
+ sets.
+ However, our greedy algorithm misses that we could simply choose each of
+ our 
+\begin_inset Formula $k$
+\end_inset
+
+ sets that divide the problem iteratively into subsets labeling each item
+ from 
+\begin_inset Formula $1$
+\end_inset
+
+ to 
+\begin_inset Formula $k$
+\end_inset
+
+ as many times as it takes to cover all items with a value in this range.
+ As a result, we will choose a larger value of sets with our greedy algorithm
+ given that 
+\begin_inset Formula $k>log(n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the case of 
+\begin_inset Formula $k=3$
+\end_inset
+
+, we can create 16 items, such that we can cover them in a set of 6 1's,
+ 5 2's, and 5 3's and have a 3 set covering.
+ However, our greedly algorithm would first pick 8 items, then 4, then 2,
+ then 1, then 1, to produce a 5 set covering.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 2: To solve this problem we can consider the 2 machines as we greedily
+ add items 
+\begin_inset Formula $j_{1}$
+\end_inset
+
+through 
+\begin_inset Formula $j_{n}$
+\end_inset
+
+ to the machine with the smallest stack.
+ We want to show that this has a worst case performance of 
+\begin_inset Formula $\frac{3}{2}$
+\end_inset
+
+ of the ideal performance given a smarter non-greedy algorithm.
+ We first give an example for this worst performance
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given list [1,1,1,1,1,1,1,1,1,1,10] our greedy algorithm will grow stacks
+ 1 and 2 until we have value 5 and the last 10 is still to be assigned.
+ This means that 5 units will occur after which the last 10 will be executed
+ to give a time of 15.
+ If we more smartly arranged this, however, we would run all 10 1's in one
+ machine and the 10 in the other such that our runtime is 10.
+ As 15 is 
+\begin_inset Formula $\frac{3}{2}$
+\end_inset
+
+ 10 we have found this example.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This example is actually quite enlightening.
+ We note that the completion time is:
+\end_layout
+
+\begin_layout Enumerate
+At least as big as the biggest job
+\end_layout
+
+\begin_layout Enumerate
+At least as big as half the sum of the jobs
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that in our worst case example is when the biggest job is equal
+ in size to the sum of all other jobs.
+ We can formalize this by noting that the different in height between our
+ two stacks as we greedily build them will never be greater than our max
+ item.
+ This is true, because we assign items to the smaller stuck, such that if
+ we are adding to a stack it must be smaller or equal in size to the other
+ stack.
+ Therefore we only produce a new larger stack if 
+\begin_inset Formula $|smallerStack|$
+\end_inset
+
+
+\begin_inset Formula $+|newItem|>|largerStack|$
+\end_inset
+
+.
+ The largest item we can add is clearly the largest item, such that our
+ gap is maximized when we have even stacks and arbitrarily add our largest
+ item to one of them.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now that we have shown the bounds of this gap we can show why this produces
+ the worst-case results.
+ This is the case because it inherently produces the longest time period
+ in which one of the stacks is inoperational and we have divided the performance
+ of our total machine by half as only one stack is operational.
+ We can bound this value by consider the case:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have the worst case where our max = 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ of the sum without the max.
+ We therefore let 
+\begin_inset Formula $y=maxItem$
+\end_inset
+
+, 
+\begin_inset Formula $x=sumHalf$
+\end_inset
+
+.
+ We therefore have the cases where our stacks are either 
+\begin_inset Formula $[x,x][y]$
+\end_inset
+
+ or 
+\begin_inset Formula $[x,y][x]$
+\end_inset
+
+, meaning that either we calculate the rest of the sum in stack1 and max
+ in the other, or calculate max after calculating each half of the sum concurren
+tly.
+ We can bound 
+\begin_inset Formula $x\leq y\leq2x$
+\end_inset
+
+ as if 
+\begin_inset Formula $y<x$
+\end_inset
+
+ then our worst case scenario would execute in time 
+\begin_inset Formula $<2x$
+\end_inset
+
+ which is actually the faster case and therefore not worst case bounds..
+ If 
+\begin_inset Formula $y>2x$
+\end_inset
+
+, then it would dominate x, in that regardless of if we had 
+\begin_inset Formula $[x,x][y]$
+\end_inset
+
+ or 
+\begin_inset Formula $[x,y][x]$
+\end_inset
+
+ the runtime would be dominated by 
+\begin_inset Formula $y$
+\end_inset
+
+.
+ More formally, we can compare the calculation time of these sum halfs and
+ the largest item to get the ratio:
+\begin_inset Formula 
+\[
+\frac{y+x}{2x}=\frac{>3x}{2x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+such that we spend a majority time executing y so executing it after x only
+ adds runtime 
+\begin_inset Formula $<\frac{1}{2}$
+\end_inset
+
+ of the total runtime.
+ We find maximizing for our potential worst cases 
+\begin_inset Formula $x\leq y\leq2x$
+\end_inset
+
+ we get the largest runtime when 
+\begin_inset Formula $y=2x$
+\end_inset
+
+ such that our runtime is
+\begin_inset Formula 
+\[
+\frac{y+x}{2x}=\frac{3x}{2x}=\frac{3}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Explicitly, in this case executing concurrenctly 
+\begin_inset Formula $[x,x][y]$
+\end_inset
+
+ we could finish in time 
+\begin_inset Formula $y=2x=2x$
+\end_inset
+
+ but instead we finish in time 
+\begin_inset Formula $3x$
+\end_inset
+
+.
+ We have therefore proven our worst case bounds for our greedy algorithm
+ is 
+\begin_inset Formula $\frac{3}{2}$
+\end_inset
+
+ of our best-case running time.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the general case with 
+\begin_inset Formula $m$
+\end_inset
+
+ machines we can show that this same solution strategy holds.
+ Our worst case scenario still includes when all 
+\begin_inset Formula $m$
+\end_inset
+
+ machines are equally filled but we have our max operation still to compute.
+ This means we must wait 
+\begin_inset Formula $\alpha x+y$
+\end_inset
+
+ time for completion where 
+\begin_inset Formula $x$
+\end_inset
+
+ is 
+\begin_inset Formula $\frac{1}{m}$
+\end_inset
+
+ of the stack excluding the largest item and 
+\begin_inset Formula $y$
+\end_inset
+
+ is the size of the largest item.We know the gap between stack heights is
+ bounded by 
+\begin_inset Formula $y$
+\end_inset
+
+ because we places items onto the shortest stack such that a stack can never
+ be shorter by more than 
+\begin_inset Formula $y$
+\end_inset
+
+ or otherwise we would have added to this stack instead of a now taller
+ one.
+ A new stack height is bounded by 
+\begin_inset Formula $|shortestStack|+|item|>|largestStack|$
+\end_inset
+
+.
+ To produce a gap larger than 
+\begin_inset Formula $y$
+\end_inset
+
+ we would have had to have added an item larger than the largest item which
+ is impossible.
+ We therefore maximize our gap when all our stacks are equal such that we
+ get a new largest height from 
+\begin_inset Formula $|shortestStack|=|largestStack|\rightarrow|largestStack|+|maxItem|$
+\end_inset
+
+.
+ This produces the largest period where only 1 machine is operational and
+ we reduce our performance to 
+\begin_inset Formula $\frac{1}{m}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The same previous logic holds for 
+\begin_inset Formula $m$
+\end_inset
+
+ instead of 2 such that we bound 
+\begin_inset Formula $x\leq y\leq(m+(m-1))x$
+\end_inset
+
+.
+ This is the case because given that we reallocate and assign the largest
+ item to a machine, we can fit in the case of all equal stacks 
+\begin_inset Formula $m$
+\end_inset
+
+ as this is our tallest item and fill the additional 
+\begin_inset Formula $m-1$
+\end_inset
+
+ stacks with 
+\begin_inset Formula $m$
+\end_inset
+
+ 
+\begin_inset Formula $x$
+\end_inset
+
+ items each to get 
+\begin_inset Formula $m-1$
+\end_inset
+
+ additional 
+\begin_inset Formula $x$
+\end_inset
+
+ items.
+ In the worst case where we have all equal stacks except one has the additional
+ 
+\begin_inset Formula $y$
+\end_inset
+
+ element.
+ To do this, we essentially rotate our 
+\begin_inset Formula $x$
+\end_inset
+
+ elements such that we have 
+\begin_inset Formula $m$
+\end_inset
+
+ stacks of 
+\begin_inset Formula $m-1$
+\end_inset
+
+ 
+\begin_inset Formula $x$
+\end_inset
+
+ elements.
+ We then have worst case speed of: 
+\begin_inset Formula 
+\[
+\frac{y+(m-1)x}{mx}=\frac{mx+(m-1)x}{mx}=\frac{2m-1}{m}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore bounded by the same logic as in the 
+\begin_inset Formula $m=2$
+\end_inset
+
+ case that our greedy algorithm is at worst 
+\begin_inset Formula $\frac{2m-1}{m}$
+\end_inset
+
+ the speed of our ideal implementation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use a form of dynamic programming to solve this problem.
+ We define variables to keep track of our current interval start and end,
+ as well as a third variable to keep track of our current interval value.
+ We likewise create an equivalent 3 variables to keep track of our current
+ maximum intervals' start, end, and value.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+NOTE: as per piazza I am assigning the max interval to be 0 for an all-negative
+ array.
+ However, we could support these by running through the array initially
+ in 
+\begin_inset Formula $n$
+\end_inset
+
+ time to recording the maximum element and if this is negative return this
+ as the max interval.
+ Equivalently, any negative subinterval will receive value of 0, though
+ this algorithm would work if we judged values 
+\begin_inset Formula $\leq0$
+\end_inset
+
+ the way we judge 0 here.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then iterate through our array, at each 
+\begin_inset Formula $i$
+\end_inset
+
+ setting our current interval to 
+\begin_inset Formula $max(interval_{i-1}+i,0)$
+\end_inset
+
+ such that if we ever dip to a negative interval, we know our interval up
+ until this point is at least as good or better before this negative dip
+ or at least as good or better after this dip.
+ In both cases we exclude this negative region which only reduces our interval
+ value.
+ If our current interval' value is larger than our current maximum interval,
+ we update our maximum interval to be the same as the value, start, and
+ end of our current interval.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Time Analysis: We step through each of 
+\begin_inset Formula $n$
+\end_inset
+
+ array elements, doing at each constant time operations of setting our current
+ interval variables and checking with and potentially modifying our maximum
+ interval variables.
+ As we do 
+\begin_inset Formula $n$
+\end_inset
+
+ sets of constant-time operations, we have runtime 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of Correctness: We know that our algorithm will find the maximum interval
+ given our finding method as we keep track of our maximum.
+ We must then show that it will indeed find a correct maximum.
+\end_layout
+
+\begin_layout Itemize
+In the all-positive case, our algorithm will simply create a sum of all
+ items and will therefore be correct
+\end_layout
+
+\begin_layout Itemize
+In the all-negative case, our algorithm will assign 
+\begin_inset Formula $max(0,interval_{i-1}+i)$
+\end_inset
+
+ as 0 in each step as our 
+\begin_inset Formula $i$
+\end_inset
+
+'s will always be zero.
+ This case is therefore correct.
+\end_layout
+
+\begin_layout Itemize
+In the mixed case, we will continue to analyze an interval through a series
+ of negative and positive integers which does not cause the interval value
+ to dip below zero.
+ It is possible that there will be a max interval that contains a negative
+ value and our algorithm will catch this as the sum will be the largest
+ found in iterating.
+ When the interval value does dip below 0, we want to reset to 0 if this
+ occurs.
+ We would want to skip through each 
+\begin_inset Formula $i$
+\end_inset
+
+ while 
+\begin_inset Formula $i<0$
+\end_inset
+
+ as through this interval we will have a negative interval, after which
+ we reset our interval to 
+\begin_inset Formula $i+1$
+\end_inset
+
+.
+ This is equivalent to considering this whole interval to have value 0.
+ We can show this skipping is correct, because assuming 
+\begin_inset Formula $interval_{i-1}+i<0$
+\end_inset
+
+ where 
+\begin_inset Formula $interval_{x,i-1}>0$
+\end_inset
+
+ and 
+\begin_inset Formula $i<0$
+\end_inset
+
+, we could take the interval 
+\begin_inset Formula $[x,i-1]$
+\end_inset
+
+ instead of 
+\begin_inset Formula $[x,i]$
+\end_inset
+
+ and our interval would be larger.
+ Equivalently given 
+\begin_inset Formula $interval_{i+1,y}>0$
+\end_inset
+
+, we could take the interval 
+\begin_inset Formula $[i+1,y]$
+\end_inset
+
+ instead of 
+\begin_inset Formula $[i,y]$
+\end_inset
+
+ and we would have an interval bigger by 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ In the case where we have an interval 
+\begin_inset Formula $[x,y]$
+\end_inset
+
+ which includes our 
+\begin_inset Formula $i$
+\end_inset
+
+ in which we dip below 0, as we have determined 
+\begin_inset Formula $[x,i]$
+\end_inset
+
+ and 
+\begin_inset Formula $[i,y]$
+\end_inset
+
+ are negative intervals, we will have either 
+\begin_inset Formula $[x,i]+[i+1,y]$
+\end_inset
+
+ or 
+\begin_inset Formula $[x,i-1]+[i,y]$
+\end_inset
+
+, both of which contain a positive interval added with a negative interval.
+ Clearly, this is larger without the negative interval, and we have therefore
+ proved that we will find the maximum interval skipping over these dips
+ below 0 by resetting our sum to 0.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 4:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(a) We design an algorithm adapted from Karatsuba's such that we can multiply
+ two integers using only six multiplications on the smaller parts (instead
+ of nine) given that we are given an integer divided equally into 3 pieces.
+ We represent our two numbers 
+\begin_inset Formula $n$
+\end_inset
+
+ as 
+\begin_inset Formula $a_{0}+b_{0}+c_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $m$
+\end_inset
+
+ as 
+\begin_inset Formula $a_{1}+b_{1}+c_{1}$
+\end_inset
+
+.
+ We then multiply out to get:
+\begin_inset Formula 
+\[
+a_{0}a_{1}x^{4}+(a_{0}b_{1}+a_{1}b_{0})x^{3}+(a_{0}c_{1}+a_{1}c_{0}+b_{0}b_{1})x^{2}+(b_{0}c_{1}+b_{1}c_{0})x+c_{0}c_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then calculate 
+\begin_inset Formula $a_{0}a_{1},b_{0}b_{1},c_{0}c_{1}$
+\end_inset
+
+.
+ We note that the coefficients of 
+\begin_inset Formula $x^{2}$
+\end_inset
+
+ are actually unfactored:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+(a_{0}+c_{0})(a_{1}+c_{1})+b_{0}b_{1}=a_{0}c_{1}+a_{1}c_{0}+b_{0}b_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore calculated the coefficients of 
+\begin_inset Formula $x^{2}$
+\end_inset
+
+ and can then similarly get the coefficients for 
+\begin_inset Formula $x$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+(b_{0}+c_{0})(b_{1}+c_{1})=b_{0}c_{0}+b_{0}c_{1}+b_{1}c_{0}+b_{1}c_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since we have 
+\begin_inset Formula $b_{0}b_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{0}c_{1}$
+\end_inset
+
+ we can get these values.
+ We note that we can also calculate 
+\begin_inset Formula $x^{3}$
+\end_inset
+
+ as we have already found 
+\begin_inset Formula $a_{0}b_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $a_{1}b_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This problem therefore requires only six multiplications:
+\begin_inset Formula 
+\[
+a_{0}a_{1},b_{0}b_{1},c_{0}c_{1},(a_{0}+c_{0})(a_{1}+c_{1}),(b_{0}+c_{0})(b_{1}+c_{1}),(b_{0}+a_{0})(b_{1}+a_{1})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(b) We give an asymptotoic running time of the algorithm.
+ As we do 6 calculations recursively on each subdivision of 3 along with
+ a constant amount of trivial work, we will have a recurrence equation of
+ 
+\begin_inset Formula 
+\[
+T(n)=6T(\frac{n}{3})+c_{n}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Master's Theorem gives a runtime of 
+\begin_inset Formula $n^{log_{3}6}$
+\end_inset
+
+or 
+\begin_inset Formula $n^{1.63}$
+\end_inset
+
+ for this problem.
+ Because Master's Theorem would give 
+\begin_inset Formula $n^{log_{2}3}$
+\end_inset
+
+ or 
+\begin_inset Formula $n^{1.58}$
+\end_inset
+
+, it is faster to only subdivide the numbers into 2 parts.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(c) We now consider only having five multiplications instead of six.
+ If we could do this our recurrence equation would be:
+\begin_inset Formula 
+\[
+T(n)=5T(\frac{n}{3})+c_{n}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By Master's Theorem this is 
+\begin_inset Formula $n^{log_{3}5}$
+\end_inset
+
+ or 
+\begin_inset Formula $n^{1.47}$
+\end_inset
+
+.
+ In this case, we would not want to only subdivide into 2 parts because
+ we would then have 
+\begin_inset Formula $n^{1.585}$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
