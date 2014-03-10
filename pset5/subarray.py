@@ -5,39 +5,32 @@ class Solution:
 
 
 		mainArray = self.createArray(self.k)
-		#print mainArray
 
 		array1 = mainArray[self.l1 : self.r1]
 		array2 = mainArray[self.l2 : self.r2]
 		length1 = len(array1)
 		length2 = len(array2)
-		maxCounter = 0
+		#print length2
+		suffixes = [[0 for _ in xrange(length2 + 1)] for _ in xrange(length1 + 1)]
+		counter = 0
 
-		#start = min(self.l1, self.l2)
-		#end = max(self.r1, self.r2)
+		for i in xrange(length1 + 1):
+			for j in xrange(length2 + 1):
+				if i == 0 or j == 0:
+					suffixes[i][j] = 0
+				elif array1[i-1] == array2[j-1]:
+					suffixes[i][j] = suffixes[i-1][j-1] + 1
+					counter = max(counter, suffixes[i][j])
+				else:
+					suffixes[i][j] = 0
 
-		#arraySolve = mainArray[start : end]
-		#print array1
-		#print array2
+		#for item in suffixes:
+		#	print item
+		return counter
 
-
-		for i in xrange(length1):
-			#print "\n"
-			#print "array1 item: " + str(i)
-			for j in xrange(length2):
-				#print "array2 item: " + str(j)
-				k = 0
-				while i + k < length1 - 1 and j + k < length2 - 1 and array1[i + k] == array2[j + k]:
-					#print array1[i + k]
-					#print array2[j + k]
-					k += 1
-					maxCounter = max(k, maxCounter)
-
-
-		return maxCounter
-
+		
 	def createArray(self,k):
-		if k == 1:
+		if k <= 1:
 			return [1]
 		else:
 			return self.createArray(k-1) + [k] + self.createArray(k-1)
