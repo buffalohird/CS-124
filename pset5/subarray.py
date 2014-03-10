@@ -1,16 +1,44 @@
+from math import log, ceil, floor
+#from datetime import datetime
+
+
+
 class Solution:
 	def solve(self):
+		#startTime = datetime.now()
 		self.k = int(raw_input())
 		self.l1, self.r1, self.l2, self.r2 = map(int, raw_input().split())
 
+		length1 = self.r1 - self.l1
+		length2 = self.r2 - self.l2
 
-		mainArray = self.createArray(self.k)
+		if self.l1 == self.l2 or self.r1 == self.r2:
+			return min(length1, length2)
 
-		array1 = mainArray[self.l1 : self.r1]
-		array2 = mainArray[self.l2 : self.r2]
-		length1 = len(array1)
-		length2 = len(array2)
-		#print length2
+		if self.l1 < self.l2 and self.r1 > self.r2:
+			return length2
+
+		if self.l2 < self.l1 and self.r2 > self.r1:
+			return length1
+
+		start = min(self.l1, self.l2)
+		end = max(self.r1, self.r2)
+
+		mainArray = [0 for _ in xrange(end - start)]
+		for i in xrange(start, end):
+			if i % 2 == 0:
+				mainArray[i - start] = 1
+			else:
+				j = 2
+				while j < self.k + 1:
+					if (i + 1 - 2**(j-1)) % 2**j == 0:
+						mainArray[i - start] = j
+						break
+					j += 1  
+
+		array1 = mainArray[self.l1 - start : self.r1 - start]
+		array2 = mainArray[self.l2 - start : self.r2 - start]
+
 		suffixes = [[0 for _ in xrange(length2 + 1)] for _ in xrange(length1 + 1)]
 		counter = 0
 
@@ -26,14 +54,33 @@ class Solution:
 
 		#for item in suffixes:
 		#	print item
+		#endTime = datetime.now()
+		#differenceTime = (endTime - startTime).total_seconds()
+		#print differenceTime
 		return counter
 
-		
+	def getValue(self, position):
+		power = self.k
+		while log(position, 2) != floor(log(position, 2)):
+			#print position
+			#print power
+			#print "\n"
+			if position > 2**power:
+				position -= 2**power
+			else:
+				power -= 1
+		#print position
+		#print int(log(position, 2)) + 1
+		return int(log(position, 2)) + 1
+
+
+	"""	
 	def createArray(self,k):
 		if k <= 1:
 			return [1]
 		else:
 			return self.createArray(k-1) + [k] + self.createArray(k-1)
+	"""
 
 
 
