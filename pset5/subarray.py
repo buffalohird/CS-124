@@ -12,8 +12,38 @@ class Solution:
 		length1 = self.r1 - self.l1
 		length2 = self.r2 - self.l2
 
-		if self.l1 == self.l2 or self.r1 == self.r2:
-			return min(length1, length2)
+		if self.l1 < self.l2 and self.r1 > self.r2:
+			return length2
+
+		if self.l2 < self.l1 and self.r2 > self.r1:
+			return length1
+
+		k = self.k
+		kPivot = 2**(k-1) - 1
+		#print kPivot
+		while not (self.l1 <= kPivot <= self.r1 and self.l2 <= kPivot <= self.r2):
+			print self.l1, self.r1, self.l2, self.r2
+			#print k
+			#print kPivot
+			if self.l1 > kPivot:
+				self.l1 -= kPivot + 1
+				self.r1 -= kPivot + 1
+			if self.l2 >= kPivot:
+				self.l2 -= kPivot + 1
+				self.r2 -= kPivot + 1
+			k -= 1
+			kPivot = 2**(k-1) - 1
+			if self.l1 < self.l2 and self.r1 > self.r2:
+				return length2
+
+			if self.l2 < self.l1 and self.r2 > self.r1:
+				return length1
+
+			#print self.l1, self.r1, self.l2, self.r2
+		print self.l1, self.r1, self.l2, self.r2
+
+		start = min(self.l1, self.l2)
+		end = max(self.r1, self.r2)
 
 		if self.l1 < self.l2 and self.r1 > self.r2:
 			return length2
@@ -21,10 +51,11 @@ class Solution:
 		if self.l2 < self.l1 and self.r2 > self.r1:
 			return length1
 
-		start = min(self.l1, self.l2)
-		end = max(self.r1, self.r2)
+		#print start, end
 
 		mainArray = [0 for _ in xrange(end - start)]
+
+
 		for i in xrange(start, end):
 			if i % 2 == 0:
 				mainArray[i - start] = 1
@@ -36,9 +67,10 @@ class Solution:
 						break
 					j += 1  
 
+
 		array1 = mainArray[self.l1 - start : self.r1 - start]
 		array2 = mainArray[self.l2 - start : self.r2 - start]
-
+		
 		suffixes = [[0 for _ in xrange(length2 + 1)] for _ in xrange(length1 + 1)]
 		counter = 0
 
@@ -52,12 +84,14 @@ class Solution:
 				else:
 					suffixes[i][j] = 0
 
+
 		#for item in suffixes:
 		#	print item
 		#endTime = datetime.now()
 		#differenceTime = (endTime - startTime).total_seconds()
 		#print differenceTime
 		return counter
+		
 
 	def getValue(self, position):
 		power = self.k
@@ -74,13 +108,13 @@ class Solution:
 		return int(log(position, 2)) + 1
 
 
-	"""	
+	
 	def createArray(self,k):
 		if k <= 1:
 			return [1]
 		else:
 			return self.createArray(k-1) + [k] + self.createArray(k-1)
-	"""
+
 
 
 
