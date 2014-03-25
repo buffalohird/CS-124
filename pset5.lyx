@@ -1,0 +1,815 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Buffalo Hird
+\end_layout
+
+\begin_layout Standard
+CS124
+\end_layout
+
+\begin_layout Standard
+Assignment 5
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will solve 1a and use this to easily solve the other subproblems
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1a:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We showed in class how to solve a text search problem for a substring 
+\begin_inset Formula $m$
+\end_inset
+
+ in 
+\begin_inset Formula $n$
+\end_inset
+
+ in time 
+\begin_inset Formula $O(nlog(n))$
+\end_inset
+
+.
+ Here, however, we want to reduce this runtime to 
+\begin_inset Formula $O(nlog(m))$
+\end_inset
+
+, which should be faster given that we are searching for a smaller string
+ in a bigger string (or it is not a particularly useful search).
+ We want to divide up this problem such that our runtime grows logarithmically
+ with 
+\begin_inset Formula $m$
+\end_inset
+
+.
+ We also note that our runtime will surely be multiplicative with 
+\begin_inset Formula $n$
+\end_inset
+
+ as we will need to look at all letters in our string we are searching through
+ to detect matches.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We design a way such that we can do a divide and conquer set of operations
+ for each divided item of 
+\begin_inset Formula $O(nlog(n))$
+\end_inset
+
+ where 
+\begin_inset Formula $n$
+\end_inset
+
+ is now a smaller number the size of the subset of the problem we have divided
+ to.
+ We note that if we naively divide our string into segments of length 
+\begin_inset Formula $m$
+\end_inset
+
+ and search each of these, we might miss matches in which these subsets
+ overlap.
+ We must therefore design our subsets such that they uniquely contain any
+ matches that might be found by overlap.
+ We therefore create sets at each interval of 
+\begin_inset Formula $m$
+\end_inset
+
+ throughout the string each of length 
+\begin_inset Formula $2m-1$
+\end_inset
+
+.
+ By doing this, we will uniquely find each case of this searched-for string
+ in our search string.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime analysis: We divide our search string of length 
+\begin_inset Formula $n$
+\end_inset
+
+ into 
+\begin_inset Formula $\frac{n}{m}$
+\end_inset
+
+ elements of length 
+\begin_inset Formula $2m-1$
+\end_inset
+
+.
+ By doing this, we execute 
+\begin_inset Formula $\frac{n}{m}$
+\end_inset
+
+ searches in time 
+\begin_inset Formula $O(mlogm)$
+\end_inset
+
+.
+ We therefore have a final worst case runtime of 
+\begin_inset Formula $O(n*log(m))$
+\end_inset
+
+.
+ 
+\begin_inset Formula $ $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of correctness: Given we make a FFT convalution:
+\begin_inset Formula 
+\[
+P^{R}=a_{k+1},...,a_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T_{i}=C_{0},...C_{2k-1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will therefore compare the coefficients of 
+\begin_inset Formula $P^{R}$
+\end_inset
+
+ to all the coefficients of 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ for our first 
+\begin_inset Formula $k$
+\end_inset
+
+ elements which is the length of our searched-for string.
+ After this point, 
+\begin_inset Formula $P^{R}$
+\end_inset
+
+ will run out of string to compare to and terminate such that only 
+\begin_inset Formula $k-1$
+\end_inset
+
+ coefficients will be compared to in this second part.
+ We then must show that this overlap will be sufficient and not cause duplicates.
+ If we consider
+\begin_inset Formula 
+\[
+P^{R}=a_{k+1},...,a_{0}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T_{i}=C_{0},...C_{2k-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+T_{j}=C_{k},...C_{3k-1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From this it can be seen that 
+\begin_inset Formula $P^{R}$
+\end_inset
+
+ will eventually terminate comparing with 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ but will continue to compare with 
+\begin_inset Formula $T_{j}$
+\end_inset
+
+ such that there are no gaps in 
+\begin_inset Formula $C$
+\end_inset
+
+ and it evaluates all possible substrings once.
+ As we only index 
+\begin_inset Formula $k-1$
+\end_inset
+
+ slots overlap, a substring contained in the overlap would need to have
+ its first character in 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ and not 
+\begin_inset Formula $T_{j}$
+\end_inset
+
+ as this would be 
+\begin_inset Formula $C_{k-1}$
+\end_inset
+
+.
+ The converse can be said for a string ending at 
+\begin_inset Formula $C_{2k}$
+\end_inset
+
+.
+ Therefore, we will cover all strings without duplicates.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1b: We now add 
+\begin_inset Formula $P$
+\end_inset
+
+ potentially containing 
+\begin_inset Quotes eld
+\end_inset
+
+don't care
+\begin_inset Quotes erd
+\end_inset
+
+ symbols such that we consider this a character match regardless of what
+ 
+\begin_inset Formula $T$
+\end_inset
+
+ contains.
+ We consider the mapping from lecture
+\begin_inset Formula 
+\[
+0\rightarrow01,1\rightarrow10
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From this we get mapped a 1 only if a character matches as 
+\begin_inset Formula $(0,1)*(0,1)=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and 
+\begin_inset Formula $(1,0)*(1,0)=1$
+\end_inset
+
+ but 
+\begin_inset Formula $(1,0)*(0,1)=0$
+\end_inset
+
+.
+ We can then map 
+\begin_inset Formula 
+\[
+*\rightarrow11
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Such that no matter what we dot product it with we get 
+\begin_inset Formula $1$
+\end_inset
+
+ as the output.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1c:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now must deal with the case where our alphabet is larger than 2 items.
+ We can't use this simple binary implementation from earlier and regardless
+ binary produces large numbers if we represent them as 0 and 1s in base10.
+ Instead, we represent the numbers as themselves, being instead clever in
+ our comparison of these numbers.
+ When we compare coefficients we now instead of multiplying them we take
+ the square of their difference.
+ If these are in fact equivalent coefficients then this result will be 0
+ as the difference between a number and itself is 0 and we square to account
+ for negative and positive coefficients.
+ This makes no asymptotic difference on the runtime as we were already multiplyi
+ng a given x and y in the polynomial and now we do 
+\begin_inset Formula $(x-y)^{2}$
+\end_inset
+
+ instead which is a constant number of additional computations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1d:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We modify our solution in c and use our logic from b to let us support languages
+ of more than 2 characters with 
+\begin_inset Quotes eld
+\end_inset
+
+don't care
+\begin_inset Quotes erd
+\end_inset
+
+ symbols.
+ We want to modify the calculation in c such that we get 0 not just if 
+\begin_inset Formula $x=y$
+\end_inset
+
+ but if either of them are a 
+\begin_inset Quotes eld
+\end_inset
+
+don't care
+\begin_inset Quotes erd
+\end_inset
+
+ .
+ Since our desired outcome is 0, we map 
+\begin_inset Formula $*\rightarrow0$
+\end_inset
+
+.
+ We can then modify our comparison function to return 0 if either x or y
+ are *.
+ We can simply multiply by both x and y, as if they are equal we will be
+ multiplying them by 0 already, and if they are not equal, we cannot produce
+ 0 by multiply non-zero numbers.
+ We therefore get our comparison function of:
+\begin_inset Formula 
+\[
+xy(x-y)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 2:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use a divide and conquer and dynamic programming approach to solve
+ this problem.
+ For a given desired (k dividers creating k+1) partitions we want to minimize
+ our imbalance for an array of n elements which these dividers subdivide.
+ We define the value of a partition as the sum of its elements such that
+ we want to divide our array into k+1 slots such that we minimize the maximum
+ distance any partition is from the entire array's average value.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use dynamic programming here to inductively build up our results
+ for larger lists and k values.
+ We begin for the k=1 case to more simply see this algorithm.
+ We begin with our full length 
+\begin_inset Formula $n$
+\end_inset
+
+ array and attempt putting the divider in each of 
+\begin_inset Formula $n-1$
+\end_inset
+
+ slots and return the minimum imbalance produced by this.
+ This process occurs 
+\begin_inset Formula $n$
+\end_inset
+
+ times as we try 
+\begin_inset Formula $\sim n$
+\end_inset
+
+ positions.
+ We note that trying each of these positions takes linear time as we will
+ have already calculated the values for the subarrays.
+ We can find this minimum imbalance then in linear time as we can sum as
+ we move our divider such that we don't begin from the beginning where the
+ divider is placed and sum 
+\begin_inset Formula $n-1*n-2*n-3*...*2$
+\end_inset
+
+ suboptimally.
+ We however have an additional multiplicative overhead of 
+\begin_inset Formula $n$
+\end_inset
+
+ for each of these dividers, as we must calculate the minimum imbalance
+ for 
+\begin_inset Formula $k-1$
+\end_inset
+
+ dividers leading up to this divider.
+ We note that for 
+\begin_inset Formula $k=1$
+\end_inset
+
+ this additional 
+\begin_inset Formula $n$
+\end_inset
+
+ overhead is useless information and 
+\begin_inset Formula $n=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then build up keeping t rack of our minimal imbalance as we build.
+ We find the minimal imbalance for every divider position for length 
+\begin_inset Formula $m$
+\end_inset
+
+ and then build up to find the minimal balance for every length 
+\begin_inset Formula $m$
+\end_inset
+
+ from 1 to 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ We note that there is symmetry in this approach and by slowly building
+ up cases of larger 
+\begin_inset Formula $m$
+\end_inset
+
+, we are building cases of smaller 
+\begin_inset Formula $n-m$
+\end_inset
+
+ on the right side of our divisions being made.
+ After this process then, we have stored in 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ time the minimal balance for every subarray configuration and therefore
+ can return the indices of the minimum of these maxes.
+ When we continue to do this for our 
+\begin_inset Formula $k!=1$
+\end_inset
+
+, we repeat this process for each k, using the lookup table to get values
+ for 
+\begin_inset Formula $k-1$
+\end_inset
+
+ such that we know where to add an additional divider such that we create
+ a new minimal balance based on the problem so far.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In more mathematical terms we have the base cases:
+\begin_inset Formula 
+\[
+\begin{array}{cc}
+0 & n=1\\
+\Sigma A[0:n] & k=0
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This means when we get to a single element array, it has no imbalance.
+ When we are no longer adding dividers and we just want the minimal imbalance
+ , we return its summed value such that we can compare its value to other
+ subarrays.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then define our equation as:
+\begin_inset Formula 
+\[
+max(min_{i\in1...n}[f(k-1,i-1)]-avg,\Sigma A[i:n]-avg)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where avg is the average of an array.
+ We therefore determine the average of our array and return the minimal
+ value from our function from our lookup table ( the mimimal imbalance so
+ far) or the minimal imbalance from our array itself if it is larger than
+ our current minimum imbalance and we can therefore achieve no better as
+ we must include this.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime analysis: As has been discussed, we do 
+\begin_inset Formula $n$
+\end_inset
+
+ operations to 
+\begin_inset Quotes eld
+\end_inset
+
+recursively
+\begin_inset Quotes erd
+\end_inset
+
+ determine the minimum imbalance for each of 
+\begin_inset Formula $n$
+\end_inset
+
+ divider positions for an array, and we repeat this 
+\begin_inset Formula $k$
+\end_inset
+
+ times until we have found minimum imbalance for k dividers.
+ Our algorithm therefore runs in 
+\begin_inset Formula $O(n^{2}k)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 4:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
