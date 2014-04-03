@@ -1,0 +1,1107 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Buffalo Hird
+\end_layout
+
+\begin_layout Standard
+CS124
+\end_layout
+
+\begin_layout Standard
+Assignment 6
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1: We determine the largest 
+\begin_inset Formula $w(S)$
+\end_inset
+
+ achievable over seperated sets by using a dynamic programming algorithm
+ such that we solve this problem for subtrees of a tree and use these to
+ determine the answer for the whole tree.
+ For easier computing we have our function return a tuple of 
+\begin_inset Formula $w(S)$
+\end_inset
+
+ for the heaviest separated set including our root node and the heaviest
+ separated set not including our root node.
+ We can then in our final answer return the max of these two values.
+ We then have a simple base case for a tree of size 1, where we return 
+\begin_inset Formula $w(s)$
+\end_inset
+
+ for 
+\begin_inset Formula $s$
+\end_inset
+
+ is our one node and 
+\begin_inset Formula $0$
+\end_inset
+
+ as there are no other separated sets.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We otherwise return either (0) our root and the largest 
+\begin_inset Formula $w(S)$
+\end_inset
+
+ for all its grandchildren, as it is connected to its children or (1) the
+ largest 
+\begin_inset Formula $w(S)$
+\end_inset
+
+ for any of its children.
+ In this way we will recursively scan down the tree building up bigger separated
+ sets.
+ We therefore have final recurrence:
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+f(s)=\left\{ \begin{array}{cc}
+[w(s),0] & |s|=1\\
+{}[w(s)+\sum_{c\in children(s)}f(c)[1] & ,max_{c\in children(s)}max(f(c)[0],f(c)[1])
+\end{array}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime Analysis: Our function has only one argument 
+\begin_inset Formula $s$
+\end_inset
+
+ which we can store for all 
+\begin_inset Formula $n$
+\end_inset
+
+ nodes in our tree such that we use 
+\begin_inset Formula $\theta(n)$
+\end_inset
+
+space where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of nodes in our tree.
+ We note that we will call 
+\begin_inset Formula $f()$
+\end_inset
+
+ for all 
+\begin_inset Formula $n$
+\end_inset
+
+ nodes which can recursively call to the bottom of a branch of length at
+ most 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ We therefore have a runtime of 
+\begin_inset Formula $\theta(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of Correctness:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We consider our two cases from which return values: (0) our set containing
+ our root and (1) our set not containing our root.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(0) Our separated set includes our root 
+\begin_inset Formula $s$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that it is illogical for any of 
+\begin_inset Formula $s'$
+\end_inset
+
+ children to be contained in the separated set as they are connected to
+ 
+\begin_inset Formula $s$
+\end_inset
+
+ but any of 
+\begin_inset Formula $s'$
+\end_inset
+
+ grandchildren can.
+ We can then compute 
+\begin_inset Formula $w(s)+$
+\end_inset
+
+each separated set of 
+\begin_inset Formula $s'$
+\end_inset
+
+ grandchildren as these are not connected to each other (or it wouldn't
+ be acyclic) and they all must contain elements not connected to 
+\begin_inset Formula $s$
+\end_inset
+
+.
+ We can guarantee this is the heaviest separated set as we cannot produce
+ this set in any other strategy as we must include 
+\begin_inset Formula $s$
+\end_inset
+
+ if we know it is in the set and we only exclude its children in our non-recursi
+ve element of the function as we know they are not separated from 
+\begin_inset Formula $s$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(1) Our separated set does not include our root 
+\begin_inset Formula $s$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As noted, each of 
+\begin_inset Formula $s'$
+\end_inset
+
+ children could be in the heaviest separated set as the graph is acyclic
+ such that these nodes are not connected to each other.
+ We can therefore compute 
+\begin_inset Formula $f()$
+\end_inset
+
+ for each of these children and sum these values to produce the magnitude
+ of the heaviest separated set.
+ We note the correctness of this as we are doing this heaviest separated
+ set problem for all children such that it is the same logic but summed
+ recursively.
+ We find the heaviest separated set for each of these subtrees by returning
+ the max of the heaviest separated set (in the subtree) containing the sub-root
+ and the heaviest separated set not including the sub-root such that we
+ get correct logic building up from our base case.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 2: We solve the problem of finding the shortest well-nested string
+ that contains our input string s as a subsequence.
+ We note that to do this, we will need to match any left item (i.e.
+ <.
+ ( ) with a right item (i.e.
+ > ) ).
+ We then design a dp algorithm to dynamically determine the shortest string
+ which satisfies this property:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We define a function 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ which sould return the shortest well-nested string that contains our input
+ string s as a subsequence.
+ We then note that we return 
+\begin_inset Formula $f(0,n-1)$
+\end_inset
+
+ for a string of length 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ We note that our base case is when 
+\begin_inset Formula $i=j$
+\end_inset
+
+ .
+ In this case we have a string of length 1 and since we must follow this
+ closure property of pairing left and right elements, the shortest string
+ must have length 2.
+ We also note that we have an invalid input if 
+\begin_inset Formula $i>j$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We know that a concatenation of two well-nested strings 
+\begin_inset Formula $mn$
+\end_inset
+
+ is also well-nested such that we can subdivide these into two separate
+ subproblems when determining 
+\begin_inset Formula $f()$
+\end_inset
+
+ and combine these two solutions to determine the min total well-nested
+ string.
+ We also note that if 
+\begin_inset Formula $mn$
+\end_inset
+
+ is not well-nested, that we can add an additional 2 characters to close
+ both m and n.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We therefore have:
+\begin_inset Formula 
+\[
+f(i,j)=\left\{ \begin{array}{cc}
+0 & i>j\\
+2 & i=j\vee j=i+1(\begin{tabular}{c}
+ij\end{tabular}well-nested)\\
+min_{i<m<j}[2+f(i+1,m)+f(m+1,j-1)] & ij\begin{tabular}{c}
+ well-nested\end{tabular}\\
+min_{i<m<j}[f(i,m)+f(m+1,j)] & ij\begin{tabular}{c}
+ otherwise\end{tabular}
+\end{array}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime Analysis:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We run this algorithm with 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ where intial values are 
+\begin_inset Formula $f(0,n-1)$
+\end_inset
+
+ and continuing recursively.
+ As this algorithm can take on any value 
+\begin_inset Formula $[0,n]$
+\end_inset
+
+ for 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ we will have a space complexity of 
+\begin_inset Formula $\theta(n^{2})$
+\end_inset
+
+.
+ We note that since we store each of these 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ values we only compute each once such that our runtime is 
+\begin_inset Formula $\theta(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of Correctness:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We inductively show that this recursive function returns the correct value.
+ We can define any input for 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ as input string 
+\begin_inset Formula $mn$
+\end_inset
+
+.
+ We therefore have two cases: (1) 
+\begin_inset Formula $mn$
+\end_inset
+
+ is well-nested (2) 
+\begin_inset Formula $mn$
+\end_inset
+
+ is not well nested.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+1.ij is well-nested
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given that we can recursively determine the shortest well-nested string
+ for the subsequences in each of our intervals contained in 
+\begin_inset Formula $[i,j]$
+\end_inset
+
+ then we can sum these shortest values as any well-nested string can, as
+ defined in the problem, be concatenated with other well-nested strings
+ (our contain them entirely).
+ We note that we have substrings 
+\begin_inset Formula $(2+f(i+1,m)+f(m+1,j)$
+\end_inset
+
+.
+ We note that eventually these will hit our base case, otherwise we will
+ continue to sum shortest values in subintervals.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2.
+ 
+\begin_inset Formula $ij$
+\end_inset
+
+ is not well-nested
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given that we can recursively determine the shortest well-nested string
+ for the subsequences in each of our intervals contained in 
+\begin_inset Formula $[i,j]$
+\end_inset
+
+ then we can sum these shortest values as any well-nested string can, as
+ defined in the problem, we can use the same approach as case (1) but modified
+ slightly.
+ We modify such that even though 
+\begin_inset Formula $ij$
+\end_inset
+
+ is not well-nested, we calculate the shortest subsequence that is well-nested
+ in 
+\begin_inset Formula $f(i,m)+f(m+1,j)$
+\end_inset
+
+ as we note in the problem definition that well-nested strings can be concatenat
+ed together and it could be the case that this well-nested substring could
+ form the larger string which is the solution to the whole of the problem.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We define a dynamic programming solution to find if y is a mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+, building up from a base case to determine if it is possible for our current
+ string to be a mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ We define our function as 
+\begin_inset Formula $f(a,b,c)$
+\end_inset
+
+ where 
+\begin_inset Formula $a$
+\end_inset
+
+= our current position in s, 
+\begin_inset Formula $b$
+\end_inset
+
+= our current position in 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $c$
+\end_inset
+
+= our current position in 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ We can then compute 
+\begin_inset Formula $f(0,0,0)$
+\end_inset
+
+ which should return 1 if 
+\begin_inset Formula $y$
+\end_inset
+
+ is a mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ checking the whole of these 3 strings.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note we have a base case when 
+\begin_inset Formula $ $
+\end_inset
+
+
+\begin_inset Formula $c=n$
+\end_inset
+
+ as we have reached the end of the string so we return 1.
+ Intuitively, our function iterates through our main strings, proceeding
+ our pointer position for a and b whenever we see a string that matches
+ the next element in 
+\begin_inset Formula $s$
+\end_inset
+
+ or 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ The trick here is that we must restart our strings 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ when we reach the end of them as there can be multiple repititions of these
+ strings in 
+\begin_inset Formula $y$
+\end_inset
+
+.
+ We therefore iterate through each of 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ as we iterate through 
+\begin_inset Formula $y$
+\end_inset
+
+ when we find the next string in either, if neither match we return 0.
+ We therefore have recurrence:
+\begin_inset Formula 
+\[
+f(a,b,c)=\left\{ \begin{array}{cc}
+1 & c=n\\
+0 & y[c]\neq s[a\%k]\wedge y[c]\neq t[b\%m]\\
+f(a+1,b,c+1)\vee f(a,b+1,c+1) & y[c]=s[a\%k]\wedge y[c]=t[b\%m]\\
+f(a+1,b,c+1) & y[c]=s[a\%k]\wedge y[c]\neq t[b\%m]\\
+f(a,b+1,c+1) & y[c]\neq s[a\%k]\wedge y[c]=t[b\%m]
+\end{array}\right\} 
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime Analysis:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that our recursive function 
+\begin_inset Formula $f(a,b,c)$
+\end_inset
+
+ has 3 pointers for which we much keep track of.
+ Therefore in memoizing these values we use at most 
+\begin_inset Formula $\theta(kmn)$
+\end_inset
+
+ as each of these strings 
+\begin_inset Formula $s,t,y$
+\end_inset
+
+ have lengths 
+\begin_inset Formula $k,m,n$
+\end_inset
+
+ respectively.
+ Since we save these 
+\begin_inset Formula $kmn$
+\end_inset
+
+ calculations for lookup and each function call includes at most 2 lookups,
+ we have runtime 
+\begin_inset Formula $\theta(kmn)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of Correctness:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We inductively show that this recursive function returns the correct value.
+ We note from our non-base-cases that we have 3 real cases to consider.
+ (1) when the next item in 
+\begin_inset Formula $y$
+\end_inset
+
+ is part of a subsequence for 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ (2) when it is for just 
+\begin_inset Formula $s$
+\end_inset
+
+ and (3) when it is for just 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(1) the next item could be next in a subsequence of 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that in this case we will call 
+\begin_inset Formula $f(a+1,b,c+1)$
+\end_inset
+
+ and 
+\begin_inset Formula $f(a,b+1,c+1)$
+\end_inset
+
+ and return 1 if either of these return 1.
+ We note that we know that either 
+\begin_inset Formula $y$
+\end_inset
+
+ starting at 
+\begin_inset Formula $c+1$
+\end_inset
+
+ is a proper mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ starting at 
+\begin_inset Formula $a+1$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ starting at 
+\begin_inset Formula $b$
+\end_inset
+
+ 
+\begin_inset Formula $or$
+\end_inset
+
+ a proper mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ starting at 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ starting at 
+\begin_inset Formula $b+1$
+\end_inset
+
+.
+ We note that we only care if one of these is the case as we only need one
+ valid pair of powerings to create a mixing such that if either is valid
+ recursively we have a correct answer.
+ We finally note that 
+\begin_inset Formula $y[c]=s[a\%k]$
+\end_inset
+
+ and 
+\begin_inset Formula $y[c]]=t[a\%m]$
+\end_inset
+
+ s.t.
+ that we must have a valid mixing for 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(2) the item could only next in a subsequence of 
+\begin_inset Formula $s$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that in this case we will call 
+\begin_inset Formula $f(a+1,b,c+1)$
+\end_inset
+
+ such that if this returns 1 then 
+\begin_inset Formula $y$
+\end_inset
+
+ start at 
+\begin_inset Formula $c+1$
+\end_inset
+
+ is a proper mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ starting at 
+\begin_inset Formula $a+1$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ starting at 
+\begin_inset Formula $b$
+\end_inset
+
+.
+ We note that since 
+\begin_inset Formula $y[c]=s[a\%k]$
+\end_inset
+
+ then we have a valid mixing for 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(3) the item could only next in a subsequence of 
+\begin_inset Formula $t$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that in this case we will call 
+\begin_inset Formula $f(a,b+1,c+1)$
+\end_inset
+
+ such that if this returns 1 then 
+\begin_inset Formula $y$
+\end_inset
+
+ start at 
+\begin_inset Formula $c+1$
+\end_inset
+
+ is a proper mixing of 
+\begin_inset Formula $s$
+\end_inset
+
+ starting at 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+ starting at 
+\begin_inset Formula $b+1$
+\end_inset
+
+.
+ We note that since 
+\begin_inset Formula $y[c]=t[b\%k]$
+\end_inset
+
+ then we have a valid mixing for 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 4:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
