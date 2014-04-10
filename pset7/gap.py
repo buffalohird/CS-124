@@ -24,13 +24,13 @@ class Solution:
 		intervalsLength = len(intervals)
 		newIntervals = []
 		print intervals
-		item = [intervals[0][0], intervals[0][3], 1]
+		item = [intervals[0][0], intervals[0][1], intervals[0][2], intervals[0][3], 1]
 		while index < intervalsLength:
 			print item
-			if intervals[index][0] >= item[1]:
+			if intervals[index][0][0] >= item[3]:
 				print "hello"
-				item[2] += 1
-				item[1] = intervals[index][3]
+				item[4] += 1
+				item[3] = intervals[index][3]
 				index += 1
 			else:
 				print "bye"

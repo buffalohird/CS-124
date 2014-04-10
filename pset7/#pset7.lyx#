@@ -152,7 +152,45 @@ We note that for this problem we are only concerned with the last 4 digits
 Plugging in values for n we find 
 \begin_inset Formula 
 \[
-1-\frac{\prod_{i=0}^{n}10,000-k+1}{10,000^{n}}>0.50,n\geq118
+1-\frac{\prod_{i=0}^{n}10,000-k+1}{10,000^{n}}>0.50,n\geq119
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For an 8 digit unique ID, we have probability of 2 matching of:
+\begin_inset Formula 
+\[
+1-\frac{\prod_{i=0}^{n}100,000,000-k+1}{100,000,000^{n}}>0.50,n\geq11,775
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a 12 digit unique ID, we have probability of 2 matching of:
+\begin_inset Formula 
+\[
+1-\frac{\prod_{i=0}^{n}1,000,000,000,000-k+1}{1,000,000,000,000^{n}}>0.50,n\geq1,177,411
 \]
 
 \end_inset
@@ -178,10 +216,14 @@ We note that this is similar to the previous problem.
 \begin_inset Formula $q$
 \end_inset
 
-, or probability of no birthday matching (hashes) for value:
+, or probability of no birthday matching (hashes) for value for 
+\begin_inset Formula $x\geq\sqrt{n}c_{1}$
+\end_inset
+
+:
 \begin_inset Formula 
 \[
-\prod_{k=0}^{\sqrt{n}c_{1}}\frac{n-k+1}{n}=\prod_{k=0}^{\sqrt{n}c_{1}}(1-\frac{k}{n})
+\prod_{k=0}^{x}\frac{n-k+1}{n}=\prod_{k=0}^{x}(1-\frac{k}{n})
 \]
 
 \end_inset
@@ -195,7 +237,7 @@ We note that as we are looking for values such that this is at most probability
 \begin_inset Formula $\frac{1}{e}$
 \end_inset
 
- we then are looking for:
+ we then are looking for a sum of:
 \begin_inset Formula 
 \[
 1-\frac{k}{n}\leq e^{-\frac{k}{n}}
@@ -204,6 +246,10 @@ We note that as we are looking for values such that this is at most probability
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+We 
 \end_layout
 
 \begin_layout Standard
@@ -216,37 +262,27 @@ We note that
 \end_inset
 
  we expect the right hand to be larger.
- We note that since likewise 
-\begin_inset Formula $e^{-x-x^{2}\leq1-x}$
+ We therefore have:
+\begin_inset Formula 
+\[
+\prod_{k=0}^{\sqrt{n}c_{1}}(1-\frac{k}{n})\leq\prod e^{\frac{k}{n}}
+\]
+
 \end_inset
 
- for 
-\begin_inset Formula $x\leq\frac{1}{2}$
+
+\end_layout
+
+\begin_layout Standard
+We can consider how this is likewise a sum of exponents such that we have:
+\begin_inset Formula 
+\[
+e^{\Sigma_{k=0}^{\sqrt{n}c_{1}}\frac{k}{n}}
+\]
+
 \end_inset
 
-, we want 
-\begin_inset Formula $\frac{k}{n}\geq\frac{1}{2}$
-\end_inset
 
-.
- We therefore have 
-\begin_inset Formula $\frac{k}{n}=1$
-\end_inset
-
- as we want this to be true for values up to 
-\begin_inset Formula $\frac{1}{e}=e^{-1}$
-\end_inset
-
-.
- We have therefore found that this works for 
-\begin_inset Formula $c_{1}$
-\end_inset
-
- up to 
-\begin_inset Formula $\sqrt{n}$
-\end_inset
-
- such that we have as many as 
 \end_layout
 
 \begin_layout Standard
