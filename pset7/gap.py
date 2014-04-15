@@ -5,65 +5,38 @@ class Solution:
 
 	def solve(self):
 		self.K = int(raw_input())
-		intervals = []
-
-
+		self.intervals = []
+		self.dp = [-1 for _ in xrange(self.K + 1)]
 
 		for _ in xrange(4):
-			intervals.append(map(int, raw_input().split()))
-
+			self.intervals.append(map(int, raw_input().split()))
 
 		# sort these fuckers
-		intervals = zip(*intervals)
+		self.intervals = zip(*self.intervals)
 		
+		self.intervals = sorted(self.intervals, key=lambda x: x[3])
 
-		intervals = sorted(intervals, key=lambda x: x[3])
+		return self.recursive(self.K - 1)
 
-		
-		index = 1
-		intervalsLength = len(intervals)
-		newIntervals = []
-		print intervals
-		item = [intervals[0][0], intervals[0][1], intervals[0][2], intervals[0][3], 1]
-		while index < intervalsLength:
-			print item
-			if intervals[index][0][0] >= item[3]:
-				print "hello"
-				item[4] += 1
-				item[3] = intervals[index][3]
-				index += 1
-			else:
-				print "bye"
-				index += 1
-				if index < intervalsLength:
-					newIntervals.append(item)
-					item = [intervals[index][0], intervals[index][3], 1]
+	def recursive(self, i):
+		if i == 0:
+			return 1
+		if self.dp[i] != -1:
+			return self.dp[i]
+		else:
+			result = max(self.recursive(i-1), self.search(i) + 1)
+			self.dp[i] = result
+			return result
 
+	def search(self, i):
+		for j in xrange(i - 1, 0, -1):
+			print i, j
+			print self.intervals[j][3], self.intervals[i][0]
+			if self.intervals[j][3] <= self.intervals[i][0]:
+				print i, j, self.recursive(j)
+				return self.recursive(j)
 
-		newIntervals.append(item)
-
-		print newIntervals
-
-
-
-
-			
-
-	
-
-
-		# merge intervals and do weights instead
-
-
-		#dp that shit
-
-
-		return 6
-
-
-
-
-
+		return 0
 
 solution = Solution()
 print solution.solve()

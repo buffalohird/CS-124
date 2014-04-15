@@ -24,15 +24,12 @@ class Solution:
 		else:
 			print "no"
 
-
 	def helper2(self, number):
 		numberLength = len(number)
 		counter = int(number[0])
 		for i in xrange(numberLength - 1):
 			counter = counter % self.prime
 			counter = counter * 10 + int(number[i+1])
-
-
 
 		return counter % self.prime
 
