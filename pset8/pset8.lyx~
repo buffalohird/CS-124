@@ -1,0 +1,1221 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Buffalo Hird
+\end_layout
+
+\begin_layout Standard
+CS124
+\end_layout
+
+\begin_layout Standard
+Assignment 7
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 1:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that for this problem we are only concerned with the last 4 digits
+ of the IDs as this is what passwords are constructed from, such that it
+ does not matter how many digits precede the last 4.
+ As a result, we note that the answer is precisely the same for any length
+ ID number 
+\begin_inset Formula $>=4$
+\end_inset
+
+.
+ We then note that this is an instance of the classic birthday problem.
+ We note that this is a possibility of 10,000 possible passwords as they
+ range from 0000 to 9999.
+ We then note that there are given a person's password in a group of 
+\begin_inset Formula $n$
+\end_inset
+
+, 
+\begin_inset Formula $n-1$
+\end_inset
+
+ possibilities with 
+\begin_inset Formula $p=\frac{1}{10,000}$
+\end_inset
+
+ for someone to match this person's password.
+ We can more easily calculate the probability of no sharing, which for 
+\begin_inset Formula $n$
+\end_inset
+
+ people is 
+\begin_inset Formula $\sum_{i=0}^{n}\frac{10,000-k+1}{10,000^{k}}$
+\end_inset
+
+.
+ This is the case as for each new password we create, we have one fewer
+ new passwords we can assign out of 10,000 that is not already allocated
+ to a user.
+ We note that this therefore becomes a 100% chance of shared password after
+ 10,000 users.
+ However, we can find the number such that we expect 
+\begin_inset Formula $p>0.50$
+\end_inset
+
+ by plugging in 
+\begin_inset Formula $n$
+\end_inset
+
+ values at which we find it more likely than not that there will be shared
+ passwords.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Plugging in values for n we find 
+\begin_inset Formula 
+\[
+1-\frac{\prod_{i=0}^{n}10,000-k+1}{10,000^{n}}>0.50,n\geq119
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For an 8 digit unique ID, we have probability of 2 matching of:
+\begin_inset Formula 
+\[
+1-\frac{\prod_{i=0}^{n}100,000,000-k+1}{100,000,000^{n}}>0.50,n\geq11,775
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a 12 digit unique ID, we have probability of 2 matching of:
+\begin_inset Formula 
+\[
+1-\frac{\prod_{i=0}^{n}1,000,000,000,000-k+1}{1,000,000,000,000^{n}}>0.50,n\geq1,177,411
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 2:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that this is similar to the previous problem.
+ We want an instance of the birthday problem such that we are finding the
+ 
+\begin_inset Formula $q$
+\end_inset
+
+, or probability of no birthday matching (hashes) for value for 
+\begin_inset Formula $x\geq\sqrt{n}c_{1}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\prod_{k=0}^{x}\frac{n-k+1}{n}=\prod_{k=0}^{x}(1-\frac{k}{n})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that as we are looking for values such that this is at most probability
+ 
+\begin_inset Formula $\frac{1}{e}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We note that 
+\begin_inset Formula $e^{-x}\geq1-x$
+\end_inset
+
+ such that for 
+\begin_inset Formula $x=\frac{k}{n}$
+\end_inset
+
+ we expect the right hand to be larger.
+ We therefore have:
+\begin_inset Formula 
+\[
+\prod_{k=0}^{x1}(1-\frac{k}{n})\leq\prod e^{\frac{k}{n}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can consider how this is likewise a sum of exponents such that we have:
+\begin_inset Formula 
+\[
+probability\leq e^{\Sigma_{k=0}^{x}-\frac{k}{n}}\rightarrow probability\leq e^{\frac{1}{n}*\frac{-x(x-1)}{2}}\rightarrow probability\leq e^{\frac{1}{n}*\frac{-x^{2}+x}{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As previously stated we are attempting to bound this value by 
+\begin_inset Formula $\frac{1}{e}$
+\end_inset
+
+ such that we have:
+\begin_inset Formula 
+\[
+\frac{1}{n}*\frac{-x^{2}+x}{2}\leq-1\rightarrow x^{2}-x-2n\geq2
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then find the tighest bound for this value when 
+\begin_inset Formula $x=\sqrt{n}*c_{1}$
+\end_inset
+
+.
+ As we know this function is increasing we expected the worst case to occur
+ when 
+\begin_inset Formula $n=1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+x^{2}-x-2n\geq0\rightarrow c_{1}^{2}-c_{1}\frac{1}{\sqrt{n}}-2\geq0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+n=1,c_{1}^{2}-c_{1}-2\geq0\rightarrow c_{1}\geq2
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore solved this problem to be the case when 
+\begin_inset Formula $c_{1}\geq2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now consider 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ such that when there are at most 
+\begin_inset Formula $c_{2}\sqrt{n}$
+\end_inset
+
+ people in the room the 
+\begin_inset Formula $q$
+\end_inset
+
+ of no two having the same hash value is 
+\begin_inset Formula $\geq\frac{1}{2}$
+\end_inset
+
+.
+ Here we use the two identities and first write this for 
+\begin_inset Formula $x\leq c_{2}\sqrt{n}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\prod_{k=0}^{x}\frac{n-k+1}{n}=\prod_{k=0}^{x}(1-\frac{k}{n})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here instead we want to bound this probability to 
+\begin_inset Formula $\geq\frac{1}{2}$
+\end_inset
+
+, which by showing that something smaller than this probability satisfies
+ this relation then our probability must then too.
+ We use the identity 
+\begin_inset Formula $e^{-x-x^{2}}\leq1-x$
+\end_inset
+
+ to compute:
+\begin_inset Formula 
+\[
+\prod_{k=0}^{x}(1-\frac{k}{n})\geq\prod_{k=0}^{x}e^{-\frac{k}{n}-\frac{k^{2}}{n^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We make the same product of exponents is equivalent to the sum of the exponents
+ themselves again:
+\begin_inset Formula 
+\[
+\prod_{k=0}^{x}(1-\frac{k}{n})\geq e^{\Sigma_{k=0}^{x}-\frac{k}{n}-\frac{k^{2}}{n^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\geq e^{\frac{-x(x-1)}{2n}-\frac{x(x-1)(2x-1)}{6n^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As previously stated we are attempting to bound this value by 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ such that we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\geq\frac{1}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{-x(x-1)}{2n}-\frac{x(x-1)(2x-1)}{6n^{2}}\geq-ln(2)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{x^{2}-x}{n}-\frac{x(x-1)(2x-1)}{3n^{2}}\leq2ln(2)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then find the tighest bound for this value when 
+\begin_inset Formula $x=\sqrt{n}*c_{2}$
+\end_inset
+
+.
+ This function will be dominating in the squared term as we approach large
+ value
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{c_{2}^{2}n}{n}-\frac{c_{2}\sqrt{n}}{n}-\frac{c_{2}\sqrt{n}(c_{2}\sqrt{n}-1)(2c_{2}\sqrt{n}-1)}{3n^{2}}\leq2ln(2)\rightarrow c_{2}^{2}\leq2ln(2)\rightarrow c_{2}\leq\sqrt{2ln(2)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have therefore bounded this problem to 
+\begin_inset Formula $c_{2}\leq\sqrt{2ln(2)}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{}{}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Letting 
+\begin_inset Formula $X_{i,j}$
+\end_inset
+
+ be a random variable which is 1 if the 
+\begin_inset Formula $ith$
+\end_inset
+
+ and 
+\begin_inset Formula $jth$
+\end_inset
+
+ element are compared on 
+\begin_inset Formula $QuickSelect(A,k)$
+\end_inset
+
+,we note that the running time is proportional to 
+\begin_inset Formula $\Sigma_{i<j}X_{i,j}$
+\end_inset
+
+.
+ We give an exact expression for this expected value - using case analysis
+ - given that 
+\begin_inset Formula $i<j$
+\end_inset
+
+.
+ We note that 
+\begin_inset Formula $ith$
+\end_inset
+
+ and 
+\begin_inset Formula $jth$
+\end_inset
+
+ will only even be compared if one is selected to be a pivot by the algorithm
+ and the expected value relies on the probabiloty of this occuring.
+ We therefore have 3 cases where this pivot is chosen such that we choose
+ a pivot that divides 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ from the subarray A:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Case 1: We select a pivot from the interval 
+\begin_inset Formula $[i,k]$
+\end_inset
+
+ where 
+\begin_inset Formula $i<j<k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that in this case the two are only compared if either are selected
+ as the pivot.
+ If the pivot is greater than 
+\begin_inset Formula $j$
+\end_inset
+
+ then they will not be used.
+ if the pivot point is between 
+\begin_inset Formula $i$
+\end_inset
+
+ and j then 
+\begin_inset Formula $i$
+\end_inset
+
+ will not be used, while if the point is after 
+\begin_inset Formula $k$
+\end_inset
+
+ and/or below 
+\begin_inset Formula $i$
+\end_inset
+
+ then will be compared.
+ We therefore discover that this only occurs when one of them is chosen
+ as a pivot initially, such that we have the expected value of this is:
+ 
+\begin_inset Formula 
+\[
+\frac{2}{j-k+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As this occurs when 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are both less than 
+\begin_inset Formula $k$
+\end_inset
+
+, this occurs with probability 
+\begin_inset Formula 
+\[
+\frac{n-j}{n-2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Case 2: We select a pivot from the interval 
+\begin_inset Formula $[k,j]$
+\end_inset
+
+ where 
+\begin_inset Formula $k<i<j$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that this is similar to case 1, noting that we will have this comparison
+ occur if either 
+\begin_inset Formula $i$
+\end_inset
+
+ or 
+\begin_inset Formula $j$
+\end_inset
+
+ is chosen to be a pivot, otherwise the subarray 
+\begin_inset Formula $k$
+\end_inset
+
+ in 
+\begin_inset Formula $QuickSelect(A,k)$
+\end_inset
+
+ will be called without these two indices such that they will never be prepared.
+ We therefore again have:
+\begin_inset Formula 
+\[
+\frac{2}{j-k+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As this occurs only when both 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are greater than 
+\begin_inset Formula $k$
+\end_inset
+
+, we have similarly probability
+\begin_inset Formula 
+\[
+\frac{i-1}{n-2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Case 3: We select a pivot from the interval 
+\begin_inset Formula $[i,j]$
+\end_inset
+
+ where 
+\begin_inset Formula $i<k<j$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we only have this occur if 
+\begin_inset Formula $i$
+\end_inset
+
+ or 
+\begin_inset Formula $j$
+\end_inset
+
+ is chosen to be a pivot, where the two possible subarrays worth noting
+ are containing either 1) k and j or 2) k and i.
+ This occurs once again with expected value:
+\begin_inset Formula 
+\[
+\frac{2}{j-k+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This occurs when 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are placed such that 
+\begin_inset Formula $k$
+\end_inset
+
+ is contained between them so that we have probability:
+\begin_inset Formula 
+\[
+\frac{j-i-1}{n-2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We cna then sum these probabilities to get a final value:
+\begin_inset Formula 
+\[
+E(X_{i,j})=\frac{2(n-j)}{(k-i+1)(n-2)}+\frac{2(i-1)}{(j-k+1)(n-2)}+\frac{2(j-i-1)}{(j-i+1)(n-2)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+3b) We determine, using a, that the expected runtime for all 
+\begin_inset Formula $i<j$
+\end_inset
+
+ is 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+ These sums are independent cases such that we can do the law of total probabili
+ty for all 3 cases mentioned above:
+\begin_inset Formula 
+\[
+E\sum_{i<j}=\sum_{i<j}E(X_{i,j})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore this value is just the sum of all expected values, we therefore
+ have:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{k-}\sum_{j=i+1}^{k-1}\frac{2}{k-i}+\sum_{i=k+1}^{n}\sum_{j=i+1}^{n}\frac{2}{j-k}+\sum_{i=1}^{k-1}\sum_{j=k+1}^{n}\frac{2}{j-i+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then evaluate each of this subsums such that we can evaluate the whole
+ expression's asymptotic runtime.
+ For the first, we note that it is equivalent to:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{k-2}\frac{2(k-i-1)}{k-i+1}\leq\sum_{i=1}^{k-2}2=2k-4
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Of course, as this is a linear function of 
+\begin_inset Formula $k$
+\end_inset
+
+, we expect a linear runtime bounded by 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the second sum, we note that it is equivalently linear by symmetry,
+ noting that we will achieve a similar linear value as we are concerned
+ with 
+\begin_inset Formula $k$
+\end_inset
+
+ values below 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ now instead of above.
+ For this reason, we expected a linear runtime bounded by 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the third sub-sum we have:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{k-1}(j-i)\frac{2}{j-i+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We define 
+\begin_inset Formula $x=j-i$
+\end_inset
+
+ as we need to consider when 
+\begin_inset Formula $k$
+\end_inset
+
+ is between these two indices and it is useful to have a variable to simplify
+ this equation:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{k-1}x\frac{2}{x+1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We therefore have a similar case as before such that we achieve:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{k-1}x\frac{2}{x+1}\leq\sum_{i=1}^{k-1}2=2k-2
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We therefore achieve a third sub-sum with linear runtime bounded by 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we have three 
+\begin_inset Formula $O(n)$
+\end_inset
+
+ runtimes, we expected an overall runtime of 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Problem 4:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We first define the probability that a specific bucket contains 
+\begin_inset Formula $k$
+\end_inset
+
+ items, noting that any item has a 
+\begin_inset Formula $\frac{1}{n}$
+\end_inset
+
+ chance of being placed in a given bucket.
+ We choose any 
+\begin_inset Formula $k$
+\end_inset
+
+ items and the rest to not be in this one bucket such that we have:
+\begin_inset Formula 
+\[
+P(B=k)={n \choose k}\frac{1}{n^{k}}(1-\frac{1}{n})^{n-k}\leq{n \choose k}\frac{1}{n^{k}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given this, we can easily calculate 
+\begin_inset Formula $P(B\geq k)$
+\end_inset
+
+by simply enumerating this for cases higher than 
+\begin_inset Formula $k$
+\end_inset
+
+, using stirling's approximation to greatly simplify this value:
+\begin_inset Formula 
+\[
+P(B\geq k)\leq\sum_{i=k}^{n}{n \choose i}\frac{1}{n^{i}}\leq\sum_{i=k}^{n}(\frac{en}{i})^{i}\frac{1}{n^{i}}=\sum_{i=k}^{n}\frac{e^{i}}{i^{i}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that this sum is strickly increasing, allowing us to bound it by
+ some upper value.
+ We note that if we include the largest value in the sum 
+\begin_inset Formula $n$
+\end_inset
+
+ times summed rather than the items themselves, we should achieve a strict
+ bound on this interval.
+ As the largest item of the sum of 
+\begin_inset Formula $n-k+1$
+\end_inset
+
+ items is 
+\begin_inset Formula $\frac{e^{k}}{k^{k}}$
+\end_inset
+
+, we have:
+\begin_inset Formula 
+\[
+P(B\geq k)\leq n\frac{e^{k}}{k^{k}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now use the property of the union bond to determine given this probability
+ of a given bucket containing at least 
+\begin_inset Formula $k$
+\end_inset
+
+ items, what is the probability there is a bucket containing at least 
+\begin_inset Formula $k$
+\end_inset
+
+ items.
+ Clearly this probability of some bucket is less than 
+\begin_inset Formula $m$
+\end_inset
+
+ times 
+\begin_inset Formula $P(B\geq k)$
+\end_inset
+
+ where 
+\begin_inset Formula $m$
+\end_inset
+
+ is the number of buckets, as this reduces the sample size from other buckets
+ can pull and is therefore not independent.
+ We then have, defining 
+\begin_inset Formula $\phi(n)=2log(n)+k-klog(k)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+P(aBucket)\leq m*P(B\geq k)\leq n^{2}\frac{e^{k}}{i^{k}}=e^{\phi(n)}(n=m)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We desire this expression to be strictly decreasing such that as 
+\begin_inset Formula $n\rightarrow\infty$
+\end_inset
+
+ our probability 
+\begin_inset Formula $\rightarrow0$
+\end_inset
+
+.
+ As our exponent is this function 
+\begin_inset Formula $\phi(n)$
+\end_inset
+
+, we expect this to dominate such that we determine what dominants within
+ that function.
+ We set, as defined in the problem the table being at least of this size,
+ 
+\begin_inset Formula $k=\frac{Clog(n)}{log(log(n))}$
+\end_inset
+
+ such taht we find:
+\begin_inset Formula 
+\[
+\phi(n)=(2-C)log(n)+\frac{C(1-log(C))log(n)}{log(log(n))}+\frac{Clog(n)log(log(log(n)))}{log(log(n))}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that this nested logs are going to increase very slowly and are
+ therefore dominated by the first term as 
+\begin_inset Formula $C$
+\end_inset
+
+ increases.
+ We note that for 
+\begin_inset Formula $C>2$
+\end_inset
+
+, 
+\begin_inset Formula $(2-C)log(n)$
+\end_inset
+
+ should strictly decrease both quickly and unboundedly such that no linked
+ list in the entire table has size larger than 
+\begin_inset Formula $O(\frac{log(n)}{log(log(n))})$
+\end_inset
+
+ with probability 
+\begin_inset Formula $99\%$
+\end_inset
+
+, as this expression has a probability 
+\begin_inset Formula $\leq1\%$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
