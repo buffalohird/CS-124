@@ -235,6 +235,13 @@ At this point we determine that there are no further augmented paths as
  To determine the minimum cut we take the edges which limit our flow at
  each iteration.
  We therefore have min-cut of value 8:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
 \begin_inset Formula 
 \[
 \{(A,B),(A,E),(C,D),(D,T)\}
@@ -269,10 +276,23 @@ Problem 2:
 \end_layout
 
 \begin_layout Standard
-We redesign the problem such that we create a new master sink and master
- source.
- For the master source, we have it feed into each original source such that
- edge values from master_source to old_source
+We redesign the problem such that we create a new single master sink and
+ single master source.
+ For the master source, we combine each source into one single source.
+ For the sink, we combine all sinks into one master sink.
+ We note that any edge which leaves (or for a sink entered) a source will
+ be present in the new master source/sink.
+ We note that this is effectively equivalent to running Ford-Fulkerson iterative
+ly on each source for each timestamp.
+ For example, at T=0, run the algorithm on source_0 then source_1, etc.
+ Repeat this for each iteration 
+\begin_inset Formula $T=t$
+\end_inset
+
+ until we have determined the max flow for this graph.
+ We can see that this is correct as as we run continued iterations of Ford-Fulke
+rson we will eventually redistribute flows to and from these sources and
+ sinks until we have found a max flow.
 \end_layout
 
 \begin_layout Standard
@@ -332,7 +352,41 @@ Problem 4:
 \end_layout
 
 \begin_layout Standard
-if not in cut then don't care
+We consider two cases: 1) where the capacity of an edge is increased by
+ 1 2) where the capacity of an edges is decreased by 1.
+ We consider the first case first:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For this case the modified edge was either at capacity or n
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+if it is not in the minimum cut then we are not concerened with this edge
+ as it is not in the bottleneck of the flow problem such that adding additional
+ capacity to this edge will not affect our solution as we will still be
+ bottlenecked by our minimum cut.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
