@@ -232,6 +232,24 @@ At this point we determine that there are no further augmented paths as
  we find no backedges by which we can redivert flow to increase the total
  flow through the system.
  As a result, we return max-flow = 8 as the solution of our problem.
+ To determine the minimum cut we take the edges which limit our flow at
+ each iteration.
+ We therefore have min-cut of value 8:
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\{(A,B),(A,E),(C,D),(D,T)\}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -258,10 +276,23 @@ Problem 2:
 \end_layout
 
 \begin_layout Standard
-We redesign the problem such that we create a new master sink and master
- source.
- For the master source, we have it feed into each original source such that
- edge values from master_source to old_source
+We redesign the problem such that we create a new single master sink and
+ single master source.
+ For the master source, we combine each source into one single source.
+ For the sink, we combine all sinks into one master sink.
+ We note that any edge which leaves (or for a sink entered) a source will
+ be present in the new master source/sink.
+ We note that this is effectively equivalent to running Ford-Fulkerson iterative
+ly on each source for each timestamp.
+ For example, at T=0, run the algorithm on source_0 then source_1, etc.
+ Repeat this for each iteration 
+\begin_inset Formula $T=t$
+\end_inset
+
+ until we have determined the max flow for this graph.
+ We can see that this is correct as as we run continued iterations of Ford-Fulke
+rson we will eventually redistribute flows to and from these sources and
+ sinks until we have found a max flow.
 \end_layout
 
 \begin_layout Standard
@@ -292,6 +323,32 @@ We redesign the problem such that we create a new master sink and master
 \end_layout
 
 \begin_layout Standard
+We can easily solve this by considering a capacity to be an internal maximum
+ flow.
+ Therefore if we have a vertex with a capacity, we can redraw that vertex
+ as two vertices with a dummy node such that there is node_1 with all the
+ incoming edges of the vertex and node_2 with all the outgoing edges of
+ the vertex.
+ node_1 then has an outgoing edge to node_2 containing the capacity of the
+ vertex.
+ In this way, we have captured this constraint using only edge capacities.
+ We know this must be correct because these internal capacities of the vertices
+ only affect what amount of flow can leave them as they cannot have affected
+ the flow potential before it reaches the vertex.
+ Therefore, as we capture the same flow constraint with this new edge and
+ dummy node, we have the same constraints represented in our graph.
+ This modifed graph can then be solved using max-flow algorithms as studied
+ in class.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Problem 3:
 \end_layout
 
@@ -300,6 +357,198 @@ Problem 3:
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+We note that this problem is essentially a variation on the coupon collector
+ problem as seen in section notes 8.
+ We then too note that we showed in class that Karger's algorithm will return
+ a given minimum cut with probability 
+\begin_inset Formula $\frac{1}{n^{2}}$
+\end_inset
+
+.
+ We then modify this algorithm to find all minimum cuts.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that there are at most 
+\begin_inset Formula ${n \choose 2}$
+\end_inset
+
+ min cuts by definition in the worst case where every cut is a min cut (one
+ big cycle).
+ We therefore note that defining 
+\begin_inset Formula $I_{j}$
+\end_inset
+
+ to be an indicator variable which is defined as 
+\begin_inset Formula 
+\[
+I_{j}=\begin{cases}
+\begin{array}{c}
+1\\
+0
+\end{array} & \begin{array}{c}
+Karger's=cut_{j}\\
+Karger's=cut_{i},i\neq j
+\end{array}\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $cut_{j}$
+\end_inset
+
+ refers to Karger's algorithm returning the jth cut.
+ We can therefore determine the expected values of all of these potential
+ cuts such that we determine the expected number of executions to find a
+ min cut:
+\begin_inset Formula 
+\[
+E(I_{0}+...+I_{{n \choose 2}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By sum of expectation we have:
+\begin_inset Formula 
+\[
+=E(I_{0})+...+E(I_{{n \choose 2}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by symetry we then have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+={n \choose 2}*E(I_{j})=\frac{{n \choose 2}}{{n \choose 2}}=1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we expect to get some min cut on ever execution of the algorithm, we
+ can then apply this as a variation of the coupon collector problem where
+ we sample from a set of outcomes until we have had all desired outcomes
+ occur.
+ Viewing each min cut as a coupon we note we want to collect all of up to
+ 
+\begin_inset Formula ${n \choose 2}$
+\end_inset
+
+ coupons.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that the correctness of the coupon collector problem is well-defined
+ and we showed the runtime in class.
+ From class we note that the expected runtime of the coupon collector problem
+ is the expected value of a sum of geometrics which is 
+\begin_inset Formula $\theta(nlogn)$
+\end_inset
+
+.
+ However, in this case 
+\begin_inset Formula $n={n \choose 2}$
+\end_inset
+
+ such that we have expected runtime 
+\begin_inset Formula $\theta({n \choose 2}log{n \choose 2}$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use Markov's inequality to bound this algorithm to a Monte Carlo
+ approximation with failure probability of at most 
+\begin_inset Formula $\frac{1}{3}$
+\end_inset
+
+.
+ Using Markov's inequality we get 
+\begin_inset Formula $ $
+\end_inset
+
+
+\begin_inset Formula $\theta(log3*{n \choose 2}log{n \choose 2}).$
+\end_inset
+
+ We note that asymptotically this has not affected our answer and since
+ 
+\begin_inset Formula $n^{2}\geq{n \choose 2}$
+\end_inset
+
+ we can then run this with a probability 
+\begin_inset Formula $\frac{1}{3}$
+\end_inset
+
+ of failure in time 
+\begin_inset Formula $O(n^{2}log(n)$
+\end_inset
+
+ as desired.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we desired this for any given 
+\begin_inset Formula $0\leq P\leq3$
+\end_inset
+
+, we could rewrite this to be in 
+\begin_inset Formula $O(n^{2}log(n)log(\frac{1}{P})$
+\end_inset
+
+ which of course is asymptotically equivalent
 \end_layout
 
 \begin_layout Standard
@@ -321,12 +570,9 @@ Problem 4:
 \end_layout
 
 \begin_layout Standard
-if not in cut then don't care
-\end_layout
-
-\begin_layout Standard
-if in cut see if still path from cut to end, run DFS from v to see if it
- gets to t using residual graph
+We consider two cases: 1) where the capacity of an edge is increased by
+ 1 2) where the capacity of an edges is decreased by 1.
+ We consider the first case first:
 \end_layout
 
 \begin_layout Standard
@@ -337,11 +583,295 @@ if in cut see if still path from cut to end, run DFS from v to see if it
 \end_layout
 
 \begin_layout Standard
-decrease:
+We note that Ford-Fulkerson always terminates and returns us a residual
+ graph with a minimum cut such that the source and sink are on opposite
+ sides of said cut.
+ We therefore can consider two subcases: i) the edge is on the cut ii) the
+ edge is not on the cut
 \end_layout
 
 \begin_layout Standard
-if not in cut, don't care unless it makes an edge 0
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ii) f it is not in the minimum cut then we are not concerened with this
+ edge as it is not in the bottleneck of the flow problem such that adding
+ additional capacity to this edge will not affect our solution as we will
+ still be bottlenecked by our minimum cut edges.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+i) If the edge is in the cut we increment the capacity of this edge and
+ run our breadth-first-search again from the source to the sink such that
+ a new path exists.
+ If this is the case, then we have incremented the max flow of our system
+ such that it is greater by 1 than before this edge was incremeneted.
+ If no new path is found, our graph is still separated by this cut such
+ that no new additional flow was diverted from source to sink.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime analysis: Besides our constant increment of an edge capacity our
+ computation is this additional breadth-first-search to check for a new
+ path.
+ This is done in 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+ such that our algorithm works in time 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of Correctness: We consider both cases
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ii) the edge does not span the cut
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this case then no path from source to sink could now exist as this cut
+ still exists unbridged.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+i) the edge does span the cut
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this case then a path from source to sink could now exist.
+ We run a breadth-first-search between the source and sink to attempt to
+ find this path given it exists.
+ If this path exists we know the new max flow must be an increment by 1
+ as we have only bridged the cut such that 1 flow unit can be sent through
+ it.
+ If this new path does not exist, however, then we know no succesful flow
+ is sent through the cut such that our max flow has not be incremented.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now consider case 2) where the capcity of an edge is decreased by 1.
+ We note that Ford-Fulkerson always terminates and returns us a residual
+ graph with a minimum cut such that the source and sink are on opposite
+ sides of said cut.
+ We therefore can consider two subcases: i) the edge is on the cut ii) the
+ edge is not on the cut
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+i) if the edge is on the cut we decrement this edge and run a breadth-first-sear
+ch to see if we can find a path from 
+\begin_inset Formula $u\rightarrow v$
+\end_inset
+
+ where our edge is defined as 
+\begin_inset Formula $\{u,v\}$
+\end_inset
+
+ such that it points out from 
+\begin_inset Formula $u$
+\end_inset
+
+ into 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ If this is the case, then the flow that we have decremented can be diverted
+ elsewhere.
+ If this is not the case, then we have just decremented the max flow of
+ the graph as 1 flow unit had to be removed without anywhere to divert this
+ lost flow potential to.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ii) if the edge is not on the cut then this poses no problem as only the
+ edges are on the cut have max utilization such that decrementing the potential
+ of a non-cut edge is non-problematic as this edge has not reached capacity.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Runtime Analysis: Besides our constant increment of an edge capacity our
+ computation is this additional breadth-first-search to check for a new
+ path.
+ This is done in 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+ such that our algorithm works in time 
+\begin_inset Formula $O(|V|+|E|)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof of Correctness: We consider both cases
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+i) the edge doesspan the cut
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this case we know that unit of flow has now had its path disconnected.
+ By running a breadth-first-search from 
+\begin_inset Formula $u\rightarrow v$
+\end_inset
+
+ for 
+\begin_inset Formula $edge=\{u,v\}$
+\end_inset
+
+ we can determine if there is an available path by which we can divert this
+ lost unit of flow such that we maintain the same max flow.
+ If this path is found this is the case because Ford-Fulkerson could use
+ this alternate path instead of the now severed route.
+ If we cannot find this path, however, then our max flow is decremented
+ by 1 as we cannot send this unit of flow because there is no way to travel
+ it from 
+\begin_inset Formula $u\rightarrow v$
+\end_inset
+
+ such that we have it depart from the source to u and from v travel to the
+ sink.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ii) the edge does not span the cut
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this case we know this lost potential unit of flow is irrelevant as only
+ the edges in the cut are at maximum capacity.
+ As a result this decremented edge capacity does not affect available paths
+ as this edge was previously underutilized such that it had 
+\begin_inset Formula $\geq1$
+\end_inset
+
+ available unutilized flow.
+ Therefore no path could have been severed which previously provided flow
+ to our max flow.
 \end_layout
 
 \end_body
